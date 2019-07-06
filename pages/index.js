@@ -31,7 +31,7 @@ function Home() {
                 <Typography variant="h4" component="h4" gutterBottom>
                     Get in touch
                 </Typography>
-                <Form name="contact" method="POST" netlify="true">
+                <Form name="contact" method="POST" netlify>
                     <InputContainer>
                         <TextField
                             id="name"
