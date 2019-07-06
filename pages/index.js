@@ -1,11 +1,11 @@
 import Head from "next/head";
-import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "components/iconbutton";
 import GithubIcon from "static/img/github-circle.svg";
 import TwitterIcon from "static/img/twitter.svg";
 import TextField from '@material-ui/core/TextField';
 import Form, { InputContainer } from "components/form";
+import { Container } from "components/layout";
 
 function Home() {
     return (
