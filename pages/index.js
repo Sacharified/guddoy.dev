@@ -32,6 +32,7 @@ function Home() {
                     Get in touch
                 </Typography>
                 <Form name="contact" method="POST" data-netlify="true">
+                    <input type="hidden" name="form-name" value="contact" />
                     <InputContainer>
                         <TextField
                             id="name"
