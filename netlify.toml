@@ -1,0 +1,10 @@
+[build]
+  command = "npm run export"
+  publish = "out"
+
+# Production context: All deploys to the main
+# repository branch will inherit these settings.
+[context.production]
+  [context.production.environment]
+
+[context.branch-deploy]
