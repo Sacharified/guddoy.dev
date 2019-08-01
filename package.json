@@ -4,7 +4,8 @@
   "description": "Sacha Guddoy's Website",
   "main": "index.js",
   "scripts": {
-    "test": "test",
+    "test": "jest ./src",
+    "test:watch": "jest ./src --watch",
     "dev": "next ./src",
     "build": "next build ./src",
     "start": "npm run export && http-server ./out -p 3000 ",
@@ -34,11 +35,15 @@
     "packageManager": "npm"
   },
   "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "babel-jest": "^24.8.0",
     "eslint": "^5.3.0",
     "eslint-config-airbnb": "^17.1.1",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.3",
-    "http-server": "^0.11.1"
+    "http-server": "^0.11.1",
+    "jest": "^24.8.0"
   }
 }
