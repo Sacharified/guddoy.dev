@@ -1,0 +1,1 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e02791c6-580f-4520-8e29-66d8c3371735/deploy-status)](https://app.netlify.com/sites/relaxed-dubinsky-422af7/deploys)
