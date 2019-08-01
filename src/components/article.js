@@ -3,7 +3,7 @@ import TimeStamp from "components/timestamp";
 import Typography from "@material-ui/core/Typography";
 import { getPostComponent } from "api/services/content";
 
-export const HeroImage = ({ file: { url, title }, description }) => (
+const HeroImage = ({ file: { url, title }, description }) => (
     <Container maxWidth="md">
         <img
             src={url}
@@ -16,7 +16,7 @@ export const HeroImage = ({ file: { url, title }, description }) => (
     </Container>
 );
 
-export const Header = ({ title, subtitle, date }) => (
+const Header = ({ title, subtitle, date }) => (
     <Container maxWidth="md">
         <Typography variant="h2" component="h2" gutterBottom>
             {title}

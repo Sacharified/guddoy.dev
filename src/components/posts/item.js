@@ -4,7 +4,7 @@ import TimeStamp from "components/timestamp";
 
 export default ({ sys, fields }) => (
     <Card>
-        <Link href={`/post?id=${sys.id}`}>
+        <Link href={`/post?id=${sys.id}`} as={`/post/${fields.slug}`}>
             <CardHeader
                 title={fields.title}
             />
