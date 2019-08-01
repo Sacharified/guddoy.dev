@@ -1,5 +1,5 @@
-import { Fragment } from "react";
 import { Container } from "components/layout";
+import TimeStamp from "components/timestamp";
 import Typography from "@material-ui/core/Typography";
 import { getPostComponent } from "api/services/content";
 
@@ -16,16 +16,21 @@ export const HeroImage = ({ file: { url, title }, description }) => (
     </Container>
 );
 
+export const Header = ({ title, subtitle, date }) => (
+    <Container maxWidth="md">
+        <Typography variant="h2" component="h2" gutterBottom>
+            {title}
+        </Typography>
+        <Typography variant="subtitle1" component="h5" gutterBottom>
+            {subtitle}
+        </Typography>
+        <TimeStamp date={date} />
+    </Container>
+);
+
 export default ({ fields, sys }) => (
     <Container component="article"  maxWidth="md">
-        <Container maxWidth="md">
-            <Typography variant="h2" component="h2" gutterBottom>
-                {fields.title}
-            </Typography>
-            <Typography variant="h5" component="h5" gutterBottom>
-                {fields.subtitle}
-            </Typography>
-        </Container>
+        <Header title={fields.title} subtitle={fields.subtitle} date={sys.createdAt} />
         <HeroImage {...fields.heroImage.fields} />
         <Container maxWidth="md">
             <Typography variant="body1" component="div" gutterBottom>

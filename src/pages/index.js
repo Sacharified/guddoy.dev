@@ -8,7 +8,7 @@ import PostsList from "components/posts/list";
 function Home() {
 	return (
 		<>
-			<Container maxWidth="sm">
+			<Container maxWidth="md">
 				<Typography variant="h2" component="h2" gutterBottom>
 					Sacha Guddoy
 				</Typography>
@@ -16,7 +16,7 @@ function Home() {
 					Front-end engineer <a href="https://about.grabyo.com" target="_blank">@grabyo</a>
 				</Typography>
 			</Container>
-			<Container maxWidth="sm">
+			<Container maxWidth="md">
 				<Typography variant="h4" component="h4" gutterBottom>
 					Blog
 				</Typography>
@@ -27,7 +27,7 @@ function Home() {
 					<Container maxWidth="sm">
 						<Typography variant="h4" component="h4" gutterBottom>
 							Get in touch
-					</Typography>
+						</Typography>
 						<Form name="contact" method="POST" data-netlify="true">
 							<input type="hidden" name="form-name" value="contact" />
 							<InputContainer>
@@ -57,7 +57,7 @@ function Home() {
 									required
 									multiline
 									rows="3"
-									rowsMax="10"
+									rowmdax="10"
 									fullWidth
 								/>
 							</InputContainer>
