@@ -8,11 +8,13 @@
     "dev": "next ./src",
     "build": "next build ./src",
     "start": "npm run build && next start ./src",
-    "export": "npm run build && next export ./src"
+    "export": "npm run build && next export ./src --outdir='./out'"
   },
   "author": "Sacha Guddoy",
   "license": "ISC",
   "dependencies": {
+    "@contentful/rich-text-html-renderer": "^13.1.0",
+    "@contentful/rich-text-react-renderer": "^13.2.0",
     "@material-ui/core": "^4.0.0-rc.0",
     "contentful": "^7.8.2",
     "dotenv": "^8.0.0",

@@ -1,4 +1,5 @@
 import { createClient } from "contentful";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { CONTENTFUL_ACCESS_TOKEN, CONTENTFUL_SPACE_ID } from "utils/env";
 
 const client = createClient({
@@ -6,20 +7,18 @@ const client = createClient({
   accessToken: CONTENTFUL_ACCESS_TOKEN
 });
 
+export const getEntries = async () => client.getEntries();
+export const getEntry = async id => client.getEntry(id);
+export const getPostComponent = content => documentToReactComponents(content);
+
 class ContentService {
-    constructor({ client }) {
-        this.client = client;
+    static getEntries() {
+        return getEntries();
     }
 
-    async getEntries() {
-        return this.client.getEntries();
-    }
-
-    async getEntry(id) {
-        return this.client.getEntry(id);
+    static getEntry(id) {
+        return getEntry(id);
     }
 }
 
-const service = new ContentService({ client });
-
-export default service;
+export default ContentService;

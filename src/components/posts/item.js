@@ -7,7 +7,7 @@ export default ({ sys, fields }) => (
         <Link href={`/post?id=${sys.id}`}>
             <CardHeader
                 title={fields.title}
-                subheader={fields.subtitle}
+                // subheader={fields.subtitle}
             />
         </Link>
         <CardContent>
