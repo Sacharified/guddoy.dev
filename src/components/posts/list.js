@@ -1,7 +1,7 @@
 import React from "react";
 import PostItem from "components/posts/item";
 import { getEntries } from "api/services/content";
-import Grid from '@material-ui/core/Grid';
+import Grid from "@material-ui/core/Grid";
 
 class PostsList extends React.Component {
 	constructor(props) {
@@ -24,12 +24,12 @@ class PostsList extends React.Component {
 		return (
 			<Grid container spacing={2}>
 				{this.state.items.map(item => (
-					<Grid item xs={4} key={item.sys.id} >
+					<Grid item xs={4} key={item.sys.id}>
 						<PostItem {...item} />
 					</Grid>
 				))}
 			</Grid>
-		)
+		);
 	}
 }
 

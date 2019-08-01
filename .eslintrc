@@ -1,14 +1,14 @@
 {
-    "extends": "airbnb",
     "parserOptions": {
+        "ecmaVersion": 10,
+        "sourceType": "module",
         "ecmaFeatures": {
             "jsx": true,
             "modules": true
         }
     },
     "rules": {
-        "indent": [4, "tab"],
+        "indent": [0, "tab"],
         "quotes": ["error", "double"],
-        "no-under": "error"
     }
 }

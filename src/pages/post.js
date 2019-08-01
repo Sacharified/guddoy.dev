@@ -22,8 +22,8 @@ export default class Post extends React.Component {
 		const { data } = this.state;
 		return (
 			<>
-				{data && <Article {...data} /> }
+				{data && <Article {...data} />}
 			</>
 		);
 	}
-};
+}
