@@ -7,7 +7,7 @@
     "test": "test",
     "dev": "next ./src",
     "build": "next build ./src",
-    "start": "npm run build && next start ./src",
+    "start": "npm run export && http-server ./out -p 3000 ",
     "export": "npm run build && next export ./src --outdir='./out'"
   },
   "author": "Sacha Guddoy",
@@ -38,6 +38,7 @@
     "eslint-config-airbnb": "^17.1.1",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.14.3"
+    "eslint-plugin-react": "^7.14.3",
+    "http-server": "^0.11.1"
   }
 }

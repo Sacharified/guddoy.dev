@@ -16,8 +16,6 @@ CONTENTFUL_SPACE_ID=yourSpaceId
 
 Statically built files are located in `/out`
 
-
-
 ### Development
 
 `npm run dev`
