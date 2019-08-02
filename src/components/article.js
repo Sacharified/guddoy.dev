@@ -2,16 +2,17 @@ import { Container } from "components/layout";
 import TimeStamp from "components/timestamp";
 import Typography from "@material-ui/core/Typography";
 import { Chip } from "@material-ui/core";
-import { getPostComponent } from "api/services/content";
 import { makeStyles } from "@material-ui/core/styles";
+import { richTextToComponent } from "utils/text";
+import Link from "next/link";
 
 const useStyles = makeStyles(theme => ({
 	root: {
 	},
 	chip: {
-	  margin: theme.spacing(1),
+		margin: theme.spacing(1),
 	},
-  }));
+}));
 
 const HeroImage = ({ file: { url, title }, description }) => (
 	<Container maxWidth="md">
@@ -28,7 +29,11 @@ const HeroImage = ({ file: { url, title }, description }) => (
 
 const TagList = ({ tags = [] }) => tags.map(tag => {
 	const classes = useStyles();
-	return <Chip size="small" label={tag} key={tag} className={classes.chip} />;
+	return (
+		<Link href={{ pathname: "/blog", query: { tags: tag }}} >
+			<Chip size="small" label={tag} key={tag} className={classes.chip} />
+		</Link>
+	);
 });
 
 const Header = ({ title, subtitle, date, tags }) => (
@@ -55,7 +60,7 @@ export default ({ fields, sys }) => {
 			<HeroImage {...fields.heroImage.fields} />
 			<Container maxWidth="md">
 				<Typography variant="body1" component="div" gutterBottom>
-					{getPostComponent(fields.content)}
+					{richTextToComponent(fields.content)}
 				</Typography>
 			</Container>
 		</Container>

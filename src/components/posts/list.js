@@ -1,6 +1,5 @@
 import React from "react";
 import PostItem from "components/posts/item";
-import ContentService from "api/services/content";
 import Grid from "@material-ui/core/Grid";
 
 class PostsList extends React.Component {

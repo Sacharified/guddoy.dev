@@ -6,14 +6,18 @@ import Form, { InputContainer } from "components/form";
 import { Container } from "components/layout";
 import PostsList from "components/posts/list";
 import Link from "next/link";
-import { createStore, serviceFactory } from "api/services/content";
+import { fetchContent, serviceFactory, createStoreFromJson } from "api/services/content";
 
 export default class extends React.Component {
-	static async getInitialProps() {
-		const service = await serviceFactory();
-		const store = await createStore(service);
-		const newprops = { store: store.toJSON() };
-		return newprops;
+	static async getInitialProps(props) {
+        const service = await serviceFactory();
+        const data = await fetchContent(service);
+		return { data };
+	}
+	
+	constructor(props) {
+		super(props);
+		this.store = createStoreFromJson(props.data.items);
 	}
 
 	render() {
@@ -34,7 +38,7 @@ export default class extends React.Component {
 							<a>Blog</a>
 						</Typography>
 					</Link>
-					<PostsList items={this.props.store.entries} />
+					<PostsList items={this.store.posts} />
 				</Container>
 				<Container maxWidth="sm">
 					<Paper>
