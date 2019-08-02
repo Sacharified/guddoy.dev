@@ -7,62 +7,98 @@ jobs:
   build:
     docker:
       - image: cypress/included:3.4.0
+    working_directory: ~/project
     steps:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
+            - dependency-cache-{{ checksum "package.json" }}
+            - dependency-cache-
+      - restore_cache:
+          keys:
+            - cypress-3.4.0
+      - restore_cache:
+          keys:
+            - netlify-2.12.0
       - run: npm install
-      - run: npm run start &
-
+      - run: npm install netlify-cli@2.12.0 -g
       - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
           paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
+            - ./node_modules
+      - save_cache:
+          key: cypress-3.4.1
+          paths:
+            - /root/.cache/Cypress
+      - save_cache:
+          key: netlify-2.12.0
+          paths:
+            - /usr/local/bin/netlify
+            - /usr/local/lib/node_modules/netlify-cli/bin/run
   test:
     docker:
       - image: cypress/included:3.4.0
+    working_directory: ~/project
     steps:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
+            - dependency-cache-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-      - run: npm test
+            - dependency-cache-
+      - run: npm install
+      - run: npm run test:ci
+      - store_test_results:
+            path: coverage
+
   ua-test:
     docker: 
       - image: cypress/included:3.4.0
+    working_directory: ~/project
     steps:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
+            - dependency-cache-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-      - run: npm install netlify-cli -g
+            - dependency-cache-
+      - restore_cache:
+          keys:
+            - netlify-2.12.0
+      - restore_cache:
+          keys:
+            - cypress-3.4.0
+
+      - run: ls /root/.cache/Cypress
+      - run: npm run export
       - run: apt-get --assume-yes install jq
-      - run: npm run start > /dev/null | CYPRESS_baseUrl=$(netlify deploy --json | jq .deploy_url) cypress open
+      - run: npm install netlify-cli@2.12.0 -g
+      - run: npm run test-ua:ci
+      - store_artifacts:
+          path: /root/project/cypress/videos/index.js.mp4
+          destination: ci-video
   deploy:
     docker:
       - image: cypress/included:3.4.0
+    working_directory: ~/project
     steps:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
+            - dependency-cache-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-      - run: npm run build
+            - dependency-cache-
+      - restore_cache:
+          keys:
+            - netlify-2.12.0
+      - run: npm install
+      - run: npm install netlify-cli@2.12.0 -g
+      - run: npm run export
       - run: netlify deploy --prod
 
 workflows:
   version: 2
-  build_and_test:
+  test_and_deploy:
     jobs:
       - build
       - test:
@@ -70,8 +106,13 @@ workflows:
             - build
       - ua-test:
           requires:
-              - build
+            - build
       - deploy:
           requires:
             - test
             - ua-test
+          filters:
+            branches:
+              only:
+                - master
+                - develop

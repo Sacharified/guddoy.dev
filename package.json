@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "jest ./src",
+    "test:ci": "npm run test -- --ci --collect-coverage",
     "test:watch": "jest ./src --watch",
     "test-ua": "npm run start > /dev/null | CYPRESS_baseUrl=http://localhost:3000 cypress open",
-    "test-ua:ci": "npm run start > /dev/null | CYPRESS_baseUrl=http://localhost:3000 cypress run",
+    "test-ua:ci": "netlify deploy --json > deploy.json && CYPRESS_baseUrl=$(jq .deploy_url deploy.json | tr -d '\"') cypress run",
     "dev": "next ./src",
     "build": "next build ./src",
     "start": "npm run export && http-server ./out -p 3000 ",
@@ -42,7 +43,7 @@
     "@babel/preset-env": "^7.5.5",
     "axios": "^0.19.0",
     "babel-jest": "^24.8.0",
-    "cypress": "^3.4.1",
+    "cypress": "3.4.0",
     "eslint": "^5.3.0",
     "eslint-config-airbnb": "^17.1.1",
     "eslint-plugin-import": "^2.18.2",
@@ -50,6 +51,18 @@
     "eslint-plugin-react": "^7.14.3",
     "http-server": "^0.11.1",
     "jest": "^24.8.0",
+    "jest-junit": "^7.0.0",
     "netlify": "^2.4.8"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/out/**",
+      "!**/dist/**",
+      "!**/.next/**"
+    ],
+    "coverageDirectory": "<rootDir>/coverage",
+    "coverageReporters": ["jest-junit"]
   }
 }
