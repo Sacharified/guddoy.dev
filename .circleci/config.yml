@@ -76,8 +76,13 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - test
-      - ua-test
+      - build
+      - test:
+          requires:
+            - build
+      - ua-test:
+          requires:
+            - build
       - deploy:
           requires:
             - test
