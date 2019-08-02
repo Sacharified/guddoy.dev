@@ -1,24 +1,34 @@
 import { createClient } from "contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { CONTENTFUL_ACCESS_TOKEN, CONTENTFUL_SPACE_ID } from "utils/env";
+import ContentStore from "../../stores/content";
 
-const client = createClient({
-	space: CONTENTFUL_SPACE_ID,
-	accessToken: CONTENTFUL_ACCESS_TOKEN
-});
-
-export const getEntries = async () => client.getEntries();
-export const getEntry = async id => client.getEntry(id);
 export const getPostComponent = content => documentToReactComponents(content);
 
-class ContentService {
-	static getEntries() {
-		return getEntries();
+export default class ContentService {
+	constructor(CONTENTFUL_SPACE_ID, CONTENTFUL_ACCESS_TOKEN) {
+		this.client = createClient({
+			space: CONTENTFUL_SPACE_ID,
+			accessToken: CONTENTFUL_ACCESS_TOKEN
+		});
 	}
 
-	static getEntry(id) {
-		return getEntry(id);
+	getEntries() {
+		return this.client.getEntries();;
+	}
+
+	getEntry(id) {
+		return this.client.getEntry(id);
 	}
 }
 
-export default ContentService;
+export const serviceFactory = async () => {
+	const { CONTENTFUL_ACCESS_TOKEN, CONTENTFUL_SPACE_ID } = await import("../../utils/env");
+	const service = new ContentService(CONTENTFUL_SPACE_ID, CONTENTFUL_ACCESS_TOKEN);
+	return service;
+}
+
+export const createStore = async (service) => {
+	const data = await service.getEntries();
+	const store = ContentStore.create({ entries: data.items });
+	return store;
+}

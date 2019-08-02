@@ -1,4 +1,5 @@
 import React from "react";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import App, { Container } from "next/app";
 import Head from "next/head";
 import IconButton from "components/iconbutton";
@@ -18,7 +19,7 @@ class Layout extends React.Component {
 				<AppBar position="fixed" color="default">
 					<Toolbar>
 						<Link href="/">
-							<IconButton icon={HomeIcon} />
+							<a><IconButton icon={HomeIcon} /></a>
 						</Link>
 						<IconButton icon={GithubIcon} onClick={() => window.open("https://github.com/Sacharified/guddoy.dev")} />
 						<IconButton icon={TwitterIcon} onClick={() => window.open("https://twitter.com/Sacharified")} />
@@ -35,8 +36,7 @@ class Layout extends React.Component {
 
 class MyApp extends App {
 	render() {
-		const { Component, pageProps } = this.props;
-
+		const { Component, router, pageProps } = this.props;
 		return (
 			<Container>
 				<Head>
@@ -53,7 +53,8 @@ class MyApp extends App {
 					</style>
 				</Head>
 				<Layout>
-					<Component {...pageProps} />
+					<CssBaseline />
+					<Component query={router.query} {...pageProps} />
 				</Layout>
 			</Container>
 		);
