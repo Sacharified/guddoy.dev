@@ -19,7 +19,7 @@ jobs:
             - cypress-3.4.0
       - restore_cache:
           keys:
-            - netlify-2.12.0
+            - global-dependency-cache-v1
       - run: npm install
       - run: npm install netlify-cli@2.12.0 -g
       - save_cache:
@@ -31,10 +31,9 @@ jobs:
           paths:
             - /root/.cache/Cypress
       - save_cache:
-          key: netlify-2.12.0
+          key: global-dependency-cache-v1
           paths:
-            - /usr/local/bin/netlify
-            - /usr/local/lib/node_modules/netlify-cli/bin/run
+            - /usr/local/lib/node_modules/
   test:
     docker:
       - image: cypress/included:3.4.0
@@ -64,12 +63,11 @@ jobs:
             - dependency-cache-
       - restore_cache:
           keys:
-            - netlify-2.12.0
+            - global-dependency-cache-v1
       - restore_cache:
           keys:
             - cypress-3.4.0
 
-      - run: ls /root/.cache/Cypress
       - run: npm run export
       - run: apt-get --assume-yes install jq
       - run: npm install netlify-cli@2.12.0 -g
@@ -90,7 +88,7 @@ jobs:
             - dependency-cache-
       - restore_cache:
           keys:
-            - netlify-2.12.0
+            - global-dependency-cache-v1
       - run: npm install
       - run: npm install netlify-cli@2.12.0 -g
       - run: npm run export
