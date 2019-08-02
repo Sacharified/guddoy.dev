@@ -79,10 +79,6 @@ jobs:
           path: /root/project/cypress/videos/index.js.mp4
           destination: ci-video
   deploy:
-    filters:
-      branches:
-        only:
-          - master
     docker:
       - image: cypress/included:3.4.0
     working_directory: ~/project
@@ -113,3 +109,6 @@ workflows:
           requires:
             - test
             - ua-test
+          filters:
+            branches:
+              only: master
