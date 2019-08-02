@@ -62,7 +62,7 @@
       "!**/dist/**",
       "!**/.next/**"
     ],
-    "coverageDirectory": "<rootDir>/coverage",
+    "coverageDirectory": "<rootDir>/coverage/jest",
     "coverageReporters": ["jest-junit"]
   }
 }
