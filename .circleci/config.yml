@@ -16,6 +16,8 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
+      - run: pwd
+      - run: ls -la
       - run: npm install
       - run: npm run start &
 
