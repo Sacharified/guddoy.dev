@@ -13,7 +13,7 @@
     "build": "next build ./src",
     "start": "npm run export && http-server ./out -p 3000 ",
     "export": "npm run build && next export ./src --outdir='./out'",
-    "deploy": "node ./scripts/deploy.js"
+    "lint": "eslint ./src ./cypress --fix"
   },
   "author": "Sacha Guddoy",
   "license": "ISC",
