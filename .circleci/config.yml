@@ -45,6 +45,7 @@ jobs:
       - run: npm install
       - run: npm install netlify-cli -g
       - run: apt-get --assume-yes install jq
+      - run: netlify deploy --json
       - run: npm run start > /dev/null | CYPRESS_baseUrl=$(netlify deploy --json | jq .deploy_url) cypress open
   deploy:
     docker:
