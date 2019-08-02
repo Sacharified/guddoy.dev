@@ -29,6 +29,7 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
+      - run: ls -la
       - run: npm install
       - run: npm test
   ua-test:
@@ -44,6 +45,7 @@ jobs:
             - v1-dependencies-
       - run: npm install
       - run: npm install netlify-cli -g
+      - run: npm run export
       - run: apt-get --assume-yes install jq
       - run: netlify deploy --json
       - run: npm run start > /dev/null | CYPRESS_baseUrl=$(netlify deploy --json | jq .deploy_url) cypress open
