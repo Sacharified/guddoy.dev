@@ -53,16 +53,5 @@
     "jest": "^24.8.0",
     "jest-junit": "^7.0.0",
     "netlify": "^2.4.8"
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "<rootDir>/src/**/*.{js,jsx}",
-      "!**/node_modules/**",
-      "!**/out/**",
-      "!**/dist/**",
-      "!**/.next/**"
-    ],
-    "coverageDirectory": "<rootDir>/coverage/jest",
-    "coverageReporters": ["jest-junit"]
   }
 }
