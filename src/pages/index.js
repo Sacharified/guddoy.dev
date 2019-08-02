@@ -6,14 +6,14 @@ import Form, { InputContainer } from "components/form";
 import { Container } from "components/layout";
 import PostsList from "components/posts/list";
 import Link from "next/link";
-import { createStore } from "api/services/content";
-import { serviceFactory } from "api/services/content";
+import { createStore, serviceFactory } from "api/services/content";
 
 export default class extends React.Component {
-	static async getInitialProps(props) {
+	static async getInitialProps() {
 		const service = await serviceFactory();
 		const store = await createStore(service);
-		return { store, ...props };
+		const newprops = { store: store.toJSON() };
+		return newprops;
 	}
 
 	render() {
