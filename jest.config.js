@@ -33,7 +33,7 @@ module.exports = {
 
   // A list of reporter names that Jest uses when writing coverage reports
   reporters: [
-    ["jest-junit", { outputDirectory: "coverage/jest" }]
+    ["jest-junit", { outputDirectory: "coverage/jest", outputName: "results.xml" }]
   ],
 
   // An object that configures minimum threshold enforcement for coverage results
