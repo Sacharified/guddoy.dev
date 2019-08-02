@@ -7,8 +7,6 @@ jobs:
   build:
     docker:
       - image: cypress/included:3.4.0
-
-    working_directory: /root/repo
     steps:
       - checkout
       - restore_cache:
@@ -28,14 +26,14 @@ jobs:
   test:
     docker:
       - image: cypress/included:3.4.0
-    working_directory: /root/repo
     steps:
+      - checkout
       - run: npm test
   ua-test:
     docker: 
       - image: cypress/included:3.4.0
-    working_directory: /root/repo
     steps:
+      - checkout
       - run: npm install netlify-cli -g
       - run: apt-get --assume-yes install jq
       - run: npm run start > /dev/null | CYPRESS_baseUrl=$(netlify deploy --json | jq .deploy_url) cypress open
@@ -43,7 +41,7 @@ jobs:
     docker:
       - image: cypress/included:3.4.0
     steps:
-      
+      - checkout
       - run: netlify deploy --prod
 
 workflows:
