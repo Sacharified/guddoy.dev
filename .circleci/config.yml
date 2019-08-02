@@ -37,6 +37,9 @@ jobs:
       - run: npm run export
       - run: apt-get --assume-yes install jq
       - run: npm run test-ua:ci
+      - store_artifacts:
+          path: /root/project/cypress/videos/index.js.mp4
+          destination: ci-video
   deploy:
     docker:
       - image: cypress/included:3.4.0
