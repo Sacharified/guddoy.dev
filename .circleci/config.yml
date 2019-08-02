@@ -15,10 +15,12 @@ jobs:
             - dependency-cache-{{ checksum "package.json" }}
             - dependency-cache-
       - run: npm install
+      - run: npm install netlify-cli -g
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
+            - /usr/local/bin/netlify
 
   test:
     docker:
@@ -57,6 +59,10 @@ jobs:
           path: /root/project/cypress/videos/index.js.mp4
           destination: ci-video
   deploy:
+    filters:
+      branches:
+        only:
+          - master
     docker:
       - image: cypress/included:3.4.0
     working_directory: ~/project
