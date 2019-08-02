@@ -45,4 +45,3 @@ jobs:
       - save_cache:
           key: global-dependency-cache-v1
           paths:
-            - /usr/local/lib/node_modules/
