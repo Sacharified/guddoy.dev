@@ -53,7 +53,7 @@ jobs:
             - v1-dependencies-
       - run: npm install
       - run: npm install netlify-cli -g
-      - run: npm run build
+      - run: npm run export
       - run: netlify deploy --prod
 
 workflows:
