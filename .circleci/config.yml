@@ -6,20 +6,11 @@ version: 2
 jobs:
   build:
     docker:
-      # specify the version you desire here
       - image: cypress/included:3.4.0
 
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
-
     working_directory: ~/repo
-
     steps:
       - checkout
-
-      # Download and cache dependencies
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
@@ -27,12 +18,44 @@ jobs:
             - v1-dependencies-
 
       - run: npm install
+      - run: npm run start
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # run tests!
+  test:
+    docker:
+      - image: cypress/included:3.4.0
+    steps:
       - run: npm test
-      - run: npm run test-ua:ci
+  ua-test:
+    docker: 
+      - image: cypress/included:3.4.0
+    steps:
+      - run: npm install netlify-cli -g
+      - run: sudo apt-get install jq
+      - run: npm run start > /dev/null | CYPRESS_baseUrl=$(netlify deploy --json | jq .deploy_url) cypress open
+  deploy:
+    docker:
+      - image: cypress/included:3.4.0
+    steps:
+      
+      - run: netlify deploy --prod
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - ua-test:
+          requires:
+              - build
+      - deploy:
+          requires:
+            - test
+            - ua-test
