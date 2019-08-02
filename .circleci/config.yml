@@ -8,7 +8,7 @@ jobs:
     docker:
       - image: cypress/included:3.4.0
 
-    working_directory: ~/repo
+    working_directory: /root/repo
     steps:
       - checkout
       - restore_cache:
@@ -28,13 +28,13 @@ jobs:
   test:
     docker:
       - image: cypress/included:3.4.0
-    working_directory: ~/repo
+    working_directory: /root/repo
     steps:
       - run: npm test
   ua-test:
     docker: 
       - image: cypress/included:3.4.0
-    working_directory: ~/repo
+    working_directory: /root/repo
     steps:
       - run: npm install netlify-cli -g
       - run: apt-get --assume-yes install jq
