@@ -13,7 +13,7 @@
     "build": "next build ./src",
     "start": "npm run export && http-server ./out -p 3000 ",
     "export": "npm run build && next export ./src --outdir='./out'",
-    "deploy": "node ./scripts/deploy.js"
+    "lint": "eslint ./src ./cypress --fix"
   },
   "author": "Sacha Guddoy",
   "license": "ISC",
@@ -26,7 +26,10 @@
     "dotenv": "^8.0.0",
     "lodash": "^4.17.13",
     "material-design-icons": "^3.0.1",
-    "next": "^8.1.0",
+    "mobx": "^5.13.0",
+    "mobx-react": "^6.1.1",
+    "mobx-state-tree": "^3.14.1",
+    "next": "^9.0.3",
     "next-images": "^1.1.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
@@ -42,27 +45,17 @@
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "axios": "^0.19.0",
+    "babel-eslint": "^10.0.2",
     "babel-jest": "^24.8.0",
     "cypress": "3.4.0",
-    "eslint": "^5.3.0",
-    "eslint-config-airbnb": "^17.1.1",
+    "eslint": "^5.16.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.3",
+    "esm": "^3.2.25",
     "http-server": "^0.11.1",
     "jest": "^24.8.0",
     "jest-junit": "^7.0.0",
     "netlify": "^2.4.8"
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "<rootDir>/src/**/*.{js,jsx}",
-      "!**/node_modules/**",
-      "!**/out/**",
-      "!**/dist/**",
-      "!**/.next/**"
-    ],
-    "coverageDirectory": "<rootDir>/coverage",
-    "coverageReporters": ["jest-junit"]
   }
 }

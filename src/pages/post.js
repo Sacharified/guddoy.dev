@@ -1,29 +1,18 @@
-import Router from "next/router";
-import { getEntry } from "api/services/content";
+import React from "react";
 import Article from "components/article";
+import { createStore } from "api/services/content";
+import { serviceFactory } from "api/services/content";
 
-export default class Post extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {};
-	}
-
-	componentDidMount() {
-		this.id = Router.router.query.id;
-		this.fetchState();
-	}
-
-	async fetchState() {
-		const data = await getEntry(this.id);
-		this.setState({ data });
+export default class PostPage extends React.Component {
+	static async getInitialProps({ query }) {
+		const service = await serviceFactory();
+		const store = await createStore(service);
+		const entry = store.entries.toJSON().find(({ sys, fields }) => (sys.id === query.id || fields.slug === query.id));
+		console.log(entry)
+		return { entry };
 	}
 
 	render() {
-		const { data } = this.state;
-		return (
-			<>
-				{data && <Article {...data} />}
-			</>
-		);
+		return <Article {...this.props.entry} />
 	}
 }
