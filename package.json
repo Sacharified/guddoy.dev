@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest ./src",
+    "test:ci": "npm run test -- --ci --collect-coverage",
     "test:watch": "jest ./src --watch",
     "test-ua": "npm run start > /dev/null | CYPRESS_baseUrl=http://localhost:3000 cypress open",
     "test-ua:ci": "netlify deploy --json > deploy.json && CYPRESS_baseUrl=$(jq .deploy_url deploy.json | tr -d '\"') cypress run",
@@ -50,6 +51,7 @@
     "eslint-plugin-react": "^7.14.3",
     "http-server": "^0.11.1",
     "jest": "^24.8.0",
+    "jest-junit": "^7.0.0",
     "netlify": "^2.4.8"
   },
   "jest": {
@@ -60,6 +62,7 @@
       "!**/dist/**",
       "!**/.next/**"
     ],
-    "coverageDirectory": "<rootDir>/coverage"
+    "coverageDirectory": "<rootDir>/coverage",
+    "coverageReporters": ["jest-junit"]
   }
 }

@@ -46,9 +46,8 @@ jobs:
             - dependency-cache-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
             - dependency-cache-
-      - run: ls -la
       - run: npm install
-      - run: npm test -- --collect-coverage
+      - run: npm run test:ci
       - store_test_results:
             path: coverage
 
