@@ -51,5 +51,15 @@
     "http-server": "^0.11.1",
     "jest": "^24.8.0",
     "netlify": "^2.4.8"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/out/**",
+      "!**/dist/**",
+      "!**/.next/**"
+    ],
+    "coverageDirectory": "<rootDir>/coverage"
   }
 }

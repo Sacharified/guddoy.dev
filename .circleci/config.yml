@@ -18,6 +18,9 @@ jobs:
       - run: ls -la
       - run: npm install
       - run: npm test
+      - store_test_results:
+            path: coverage
+
   ua-test:
     docker: 
       - image: cypress/included:3.4.0
@@ -33,8 +36,7 @@ jobs:
       - run: npm install netlify-cli -g
       - run: npm run export
       - run: apt-get --assume-yes install jq
-      - run: netlify deploy --json
-      - run: npm run start > /dev/null | CYPRESS_baseUrl=$(netlify deploy --json | jq .deploy_url) cypress open
+      - run: npm run start > /dev/null | CYPRESS_baseUrl=$(netlify deploy --json | jq .deploy_url) cypress run
   deploy:
     docker:
       - image: cypress/included:3.4.0
