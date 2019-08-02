@@ -4,6 +4,22 @@
 #
 version: 2
 jobs:
+  build:
+    docker:
+      - image: cypress/included:3.4.0
+    working_directory: ~/project
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+
   test:
     docker:
       - image: cypress/included:3.4.0
