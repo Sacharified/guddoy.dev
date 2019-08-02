@@ -7,6 +7,7 @@ jobs:
   build:
     docker:
       - image: cypress/included:3.4.0
+    working_directory: ~/project
     steps:
       - checkout
       - restore_cache:
@@ -26,6 +27,7 @@ jobs:
   test:
     docker:
       - image: cypress/included:3.4.0
+    working_directory: ~/project
     steps:
       - checkout
       - restore_cache:
@@ -37,6 +39,7 @@ jobs:
   ua-test:
     docker: 
       - image: cypress/included:3.4.0
+    working_directory: ~/project
     steps:
       - checkout
       - restore_cache:
@@ -50,6 +53,7 @@ jobs:
   deploy:
     docker:
       - image: cypress/included:3.4.0
+    working_directory: ~/project
     steps:
       - checkout
       - restore_cache:
@@ -57,7 +61,6 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
-      - run: npm run build
       - run: netlify deploy --prod
 
 workflows:
