@@ -33,7 +33,7 @@ jobs:
             - dependency-cache-
       - run: ls -la
       - run: npm install
-      - run: npm test --collect-coverage
+      - run: npm test -- --collect-coverage
       - store_test_results:
             path: coverage
 
