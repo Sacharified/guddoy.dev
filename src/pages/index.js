@@ -4,7 +4,8 @@ import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
 import Form, { InputContainer } from "components/form";
 import { Container } from "components/layout";
-import PostsList from "components/posts/list";
+import Grid from "components/grid";
+import Post from "components/post";
 import Link from "next/link";
 import { fetchContent, serviceFactory, createStoreFromJson } from "api/services/content";
 
@@ -38,7 +39,7 @@ export default class extends React.Component {
 							<a>Blog</a>
 						</Typography>
 					</Link>
-					<PostsList items={this.store.posts} />
+					<Grid items={this.store.posts} component={Post} />
 				</Container>
 				<Container maxWidth="sm">
 					<Paper>

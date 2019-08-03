@@ -1,18 +1,8 @@
 import { Container } from "components/layout";
 import TimeStamp from "components/timestamp";
 import Typography from "@material-ui/core/Typography";
-import { Chip } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import { richTextToComponent } from "utils/text";
-import Link from "next/link";
-
-const useStyles = makeStyles(theme => ({
-	root: {
-	},
-	chip: {
-		margin: theme.spacing(1),
-	},
-}));
+import TagList from "components/tags";
 
 const HeroImage = ({ file: { url, title }, description }) => (
 	<Container maxWidth="md">
@@ -27,15 +17,6 @@ const HeroImage = ({ file: { url, title }, description }) => (
 	</Container>
 ); 
 
-const TagList = ({ tags = [] }) => tags.map(tag => {
-	const classes = useStyles();
-	return (
-		<Link href={{ pathname: "/blog", query: { tags: tag }}} >
-			<Chip size="small" label={tag} key={tag} className={classes.chip} />
-		</Link>
-	);
-});
-
 const Header = ({ title, subtitle, date, tags }) => (
 	<>
 		<Container maxWidth="md">
@@ -48,21 +29,20 @@ const Header = ({ title, subtitle, date, tags }) => (
 			<TimeStamp date={date} />
 		</Container>
 		<Container>
-			<Typography variant="caption" display="inline">Tags:</Typography> <TagList tags={tags} />
+			<Typography variant="caption" display="inline">Tags:</Typography>
+			<TagList tags={tags} />
 		</Container>
 	</>
 );
 
-export default ({ fields, sys }) => {
-	return (
-		<Container component="article" maxWidth="md">
-			<Header title={fields.title} subtitle={fields.subtitle} date={sys.createdAt} tags={fields.tags} />
-			<HeroImage {...fields.heroImage.fields} />
-			<Container maxWidth="md">
-				<Typography variant="body1" component="div" gutterBottom>
-					{richTextToComponent(fields.content)}
-				</Typography>
-			</Container>
+export default ({ fields: { title, subtitle, tags, heroImage, content }, sys: { createdAt } }) => (
+	<Container component="article" maxWidth="md">
+		<Header title={title} subtitle={subtitle} date={createdAt} tags={tags} />
+		{heroImage.fields && <HeroImage {...heroImage.fields} />}
+		<Container maxWidth="md">
+			<Typography variant="body1" component="div" gutterBottom>
+				{richTextToComponent(content)}
+			</Typography>
 		</Container>
-	);
-}
+	</Container>
+);
