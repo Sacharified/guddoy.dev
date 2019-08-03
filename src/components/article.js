@@ -25,7 +25,7 @@ const HeroImage = ({ file: { url, title }, description }) => (
 			{description}
 		</Typography>
 	</Container>
-);
+); 
 
 const TagList = ({ tags = [] }) => tags.map(tag => {
 	const classes = useStyles();

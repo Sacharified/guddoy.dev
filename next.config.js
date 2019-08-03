@@ -30,7 +30,7 @@ module.exports = withImages({
 			"/blog": { page: "/blog" },
 		};
 		const store = await fetchContent(service);
-		store.entries.forEach(post => {
+		store.items.forEach(post => {
 			paths[`/post/${post.fields.slug}`] = { page: "/post", query: { id: post.sys.id, slug: post.fields.slug } };
 		});
 

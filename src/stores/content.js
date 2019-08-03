@@ -29,6 +29,10 @@ const Content = types.model("Content", {
 
     queryByTag(tags = []) {
         return self.entries.filter(entry => !!tags.filter(tag => entry.fields.tags.includes(tag)).length);
+    },
+
+    getEntry(id) {
+        return self.entries.find(entry => entry.sys.id === id);
     }
 }));
 
