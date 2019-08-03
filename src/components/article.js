@@ -35,14 +35,16 @@ const Header = ({ title, subtitle, date, tags }) => (
 	</>
 );
 
-export default ({ fields: { title, subtitle, tags, heroImage, content }, sys: { createdAt } }) => (
-	<Container component="article" maxWidth="md">
-		<Header title={title} subtitle={subtitle} date={createdAt} tags={tags} />
-		{heroImage.fields && <HeroImage {...heroImage.fields} />}
-		<Container maxWidth="md">
-			<Typography variant="body1" component="div" gutterBottom>
-				{richTextToComponent(content)}
-			</Typography>
+export default ({ fields, sys }) => {
+	return (
+		<Container component="article" maxWidth="md">
+			<Header title={fields.title} subtitle={fields.subtitle} date={sys.createdAt} tags={fields.tags} />
+			<HeroImage {...fields.heroImage.fields} />
+			<Container maxWidth="md">
+				<Typography variant="body1" component="div" gutterBottom>
+					{richTextToComponent(fields.content)}
+				</Typography>
+			</Container>
 		</Container>
-	</Container>
-);
+	);
+}
