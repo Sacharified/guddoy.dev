@@ -51,7 +51,7 @@ export default class extends React.Component {
 								<input type="hidden" name="form-name" value="contact" />
 								<InputContainer>
 									<TextField
-										id="name"
+										id="nameInput"
 										name="name"
 										label="Name"
 										required
@@ -60,7 +60,7 @@ export default class extends React.Component {
 								</InputContainer>
 								<InputContainer>
 									<TextField
-										id="name"
+										id="emailInput"
 										name="email"
 										label="Email Address"
 										type="email"
@@ -70,7 +70,7 @@ export default class extends React.Component {
 								</InputContainer>
 								<InputContainer>
 									<TextField
-										id="name"
+										id="messageInput"
 										name="message"
 										label="Message"
 										required

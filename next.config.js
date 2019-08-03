@@ -4,10 +4,10 @@ require("dotenv").config()
 const withImages = require("next-images");
 const merge = require("webpack-merge");
 const path = require("path");
-const ContentService = require("./src/api/services/content").default;
-const { fetchContent } = require("./src/api/services/content");
+const getContent = require("./scripts/get-content");
+const getImages = require("./scripts/get-images");
+
 const { CONTENTFUL_ACCESS_TOKEN, CONTENTFUL_SPACE_ID, NODE_ENV } = process.env;
-const service = new ContentService(CONTENTFUL_SPACE_ID, CONTENTFUL_ACCESS_TOKEN);
 module.exports = withImages({
 	webpack(config, options) {
 		return merge({
@@ -29,8 +29,9 @@ module.exports = withImages({
 			"/": { page: "/" },
 			"/blog": { page: "/blog" },
 		};
-		const store = await fetchContent(service);
-		store.items.forEach(post => {
+		const { items, includes: { Asset = [] } } = await getContent();
+		await getImages(Asset);
+		items.forEach(post => {
 			paths[`/post/${post.fields.slug}`] = { page: "/post", query: { id: post.sys.id, slug: post.fields.slug } };
 		});
 

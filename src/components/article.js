@@ -3,20 +3,40 @@ import TimeStamp from "components/timestamp";
 import Typography from "@material-ui/core/Typography";
 import { richTextToComponent } from "utils/text";
 import TagList from "components/tags";
-import { toProgressiveImageUrl } from "api/services/content";
+import dynamic from "next/dynamic";
 
-const HeroImage = ({ file: { url, title }, description }) => (
-	<Container maxWidth="md">
-		<img
-			src={toProgressiveImageUrl(url)}
-			alt={title}
-			width="100%"
-		/>
-		<Typography variant="caption">
-			{description}
-		</Typography>
-	</Container>
-); 
+const Lqip = dynamic(() => import("lqip-react"), { ssr: false });
+
+
+const HeroImage = ({
+	file: {
+		url,
+		details: {
+			image: { width, height }
+		}
+	},
+	description,
+	title
+}) => {
+	// const fileName = url.substr(url.lastIndexOf("/", url.lastIndexOf(".")));
+	const fileName = url.split("/").pop();
+	const folder = `/static/content/img/${fileName}`;
+
+	return (
+		<Container maxWidth="md">
+			<Lqip
+				aspectRatio={`${width}x${height}`}
+				thumbnail={`${folder}/image.svg`}
+				src={`${folder}/image.jpeg`}
+				alt={title}
+				width="100%"
+			/>
+			<Typography variant="caption">
+				{description}
+			</Typography>
+		</Container>
+	)
+};
 
 const Header = ({ title, subtitle, date, tags }) => (
 	<>

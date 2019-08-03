@@ -26,6 +26,7 @@
     "dateformat": "^3.0.3",
     "dotenv": "^8.0.0",
     "lodash": "^4.17.13",
+    "lqip-react": "^1.0.1",
     "material-design-icons": "^3.0.1",
     "mobx": "^5.13.0",
     "mobx-react": "^6.1.1",
@@ -34,7 +35,11 @@
     "next-images": "^1.1.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-syntax-highlighter": "^11.0.2"
+    "react-syntax-highlighter": "^11.0.2",
+    "sharp": "^0.23.0",
+    "sqip-plugin-data-uri": "^1.0.0-alpha.27",
+    "sqip-plugin-primitive": "^1.0.0-alpha.27",
+    "sqip-plugin-svgo": "^1.0.0-alpha.27"
   },
   "bit": {
     "env": {
@@ -58,6 +63,9 @@
     "http-server": "^0.11.1",
     "jest": "^24.8.0",
     "jest-junit": "^7.0.0",
-    "netlify": "^2.4.8"
+    "memfs": "^2.15.5",
+    "netlify": "^2.4.8",
+    "sqip": "^1.0.0-alpha.26",
+    "sqip-plugin-blur": "^1.0.0-alpha.22"
   }
 }

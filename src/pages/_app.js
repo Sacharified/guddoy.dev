@@ -16,13 +16,16 @@ class Layout extends React.Component {
 		const { children } = this.props;
 		return (
 			<>
+				<Head>
+					<title>Sacha Guddoy</title>
+				</Head>
 				<AppBar position="fixed" color="default">
 					<Toolbar>
 						<Link href="/">
-							<a><IconButton icon={HomeIcon} /></a>
+							<a><IconButton title="home" icon={HomeIcon} /></a>
 						</Link>
-						<IconButton icon={GithubIcon} onClick={() => window.open("https://github.com/Sacharified/guddoy.dev")} />
-						<IconButton icon={TwitterIcon} onClick={() => window.open("https://twitter.com/Sacharified")} />
+						<IconButton title="github" icon={GithubIcon} onClick={() => window.open("https://github.com/Sacharified/guddoy.dev")} />
+						<IconButton title="twitter" icon={TwitterIcon} onClick={() => window.open("https://twitter.com/Sacharified")} />
 						<Typography variant="h6" align="right" style={{ marginLeft: "auto" }}>Sacha Guddoy</Typography>
 					</Toolbar>
 				</AppBar>
