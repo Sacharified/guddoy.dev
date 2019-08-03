@@ -30,7 +30,7 @@ export default class extends React.Component {
 					</Typography>
 					<Typography variant="h5" component="h5" gutterBottom>
 						Front-end engineer
-						<a href="https://about.grabyo.com" target="_blank">@grabyo</a>
+						<a href="https://about.grabyo.com" rel="noreferrer" target="_blank">@grabyo</a>
 					</Typography>
 				</Container>
 				<Container maxWidth="md">
