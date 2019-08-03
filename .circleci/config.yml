@@ -20,6 +20,7 @@ jobs:
           keys:
             - global-dependency-cache-v2
       - run: apt-get --assume-yes install jq
+      - run: apt-get --assume-yes install libvips
       - run: npm install
       - run: npm install netlify-cli@2.12.0 -g
       - run: npm run test:ci
