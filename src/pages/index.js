@@ -4,16 +4,21 @@ import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
 import Form, { InputContainer } from "components/form";
 import { Container } from "components/layout";
-import PostsList from "components/posts/list";
+import Grid from "components/grid";
+import Post from "components/post";
 import Link from "next/link";
-import { createStore, serviceFactory } from "api/services/content";
+import { fetchContent, serviceFactory, createStoreFromJson } from "api/services/content";
 
 export default class extends React.Component {
-	static async getInitialProps() {
-		const service = await serviceFactory();
-		const store = await createStore(service);
-		const newprops = { store: store.toJSON() };
-		return newprops;
+	static async getInitialProps(props) {
+        const service = await serviceFactory();
+        const data = await fetchContent(service);
+		return { data };
+	}
+	
+	constructor(props) {
+		super(props);
+		this.store = createStoreFromJson(props.data.items);
 	}
 
 	render() {
@@ -34,7 +39,7 @@ export default class extends React.Component {
 							<a>Blog</a>
 						</Typography>
 					</Link>
-					<PostsList items={this.props.store.entries} />
+					<Grid items={this.store.posts} component={Post} />
 				</Container>
 				<Container maxWidth="sm">
 					<Paper>

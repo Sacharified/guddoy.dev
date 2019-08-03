@@ -1,8 +1,5 @@
 import { createClient } from "contentful";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import ContentStore from "../../stores/content";
-
-export const getPostComponent = content => documentToReactComponents(content);
 
 export default class ContentService {
 	constructor(CONTENTFUL_SPACE_ID, CONTENTFUL_ACCESS_TOKEN) {
@@ -27,8 +24,11 @@ export const serviceFactory = async () => {
 	return service;
 }
 
-export const createStore = async (service) => {
+export const fetchContent = async (service) => {
 	const data = await service.getEntries();
-	const store = ContentStore.create({ entries: data.items });
-	return store;
+	return data;
+}
+
+export const createStoreFromJson = (entries) => {
+	return ContentStore.create({ entries });
 }

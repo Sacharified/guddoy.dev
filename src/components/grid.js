@@ -1,15 +1,14 @@
 import React from "react";
-import PostItem from "components/posts/item";
-import ContentService from "api/services/content";
 import Grid from "@material-ui/core/Grid";
 
-class PostsList extends React.Component {
+class GridComponent extends React.Component {
 	render() {
+		const Component = this.props.component;
 		return (
 			<Grid container spacing={2}>
 				{this.props.items.map(item => (
 					<Grid item xs={4} key={item.sys.id}>
-						<PostItem {...item} />
+						<Component {...item} />
 					</Grid>
 				))}
 			</Grid>
@@ -17,4 +16,4 @@ class PostsList extends React.Component {
 	}
 }
 
-export default PostsList;
+export default GridComponent;
