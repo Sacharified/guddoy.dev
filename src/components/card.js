@@ -21,6 +21,7 @@ const useStyles = makeStyles(theme => {
 
 export default ({ title, date, image, link }) => {
 	const classes = useStyles();
+	console.log(classes);
 	return (
 		<Card>
 			<Link {...link} >

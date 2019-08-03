@@ -41,16 +41,6 @@ class MyApp extends App {
 			<Container>
 				<Head>
 					<title>Sacha Guddoy</title>
-					<meta name="viewport" content="initial-scale=1.0, width=device-width" />
-					<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-					<style>
-						{`
-						body { 
-							padding: 0;
-							margin: 0;
-						}
-					`}
-					</style>
 				</Head>
 				<Layout>
 					<CssBaseline />

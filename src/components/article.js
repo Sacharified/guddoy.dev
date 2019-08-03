@@ -39,7 +39,7 @@ export default ({ fields, sys }) => {
 	return (
 		<Container component="article" maxWidth="md">
 			<Header title={fields.title} subtitle={fields.subtitle} date={sys.createdAt} tags={fields.tags} />
-			<HeroImage {...fields.heroImage.fields} />
+			{fields.heroImage.fields && <HeroImage {...fields.heroImage.fields} />}
 			<Container maxWidth="md">
 				<Typography variant="body1" component="div" gutterBottom>
 					{richTextToComponent(fields.content)}
