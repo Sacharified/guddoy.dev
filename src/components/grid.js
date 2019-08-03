@@ -7,7 +7,7 @@ class GridComponent extends React.Component {
 		return (
 			<Grid container spacing={2}>
 				{this.props.items.map(item => (
-					<Grid item xs={4} key={item.sys.id}>
+					<Grid item xs={12} sm={6} md={4} key={item.sys.id}>
 						<Component {...item} />
 					</Grid>
 				))}

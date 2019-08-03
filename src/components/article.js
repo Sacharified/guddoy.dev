@@ -3,11 +3,12 @@ import TimeStamp from "components/timestamp";
 import Typography from "@material-ui/core/Typography";
 import { richTextToComponent } from "utils/text";
 import TagList from "components/tags";
+import { toProgressiveImageUrl } from "api/services/content";
 
 const HeroImage = ({ file: { url, title }, description }) => (
 	<Container maxWidth="md">
 		<img
-			src={url}
+			src={toProgressiveImageUrl(url)}
 			alt={title}
 			width="100%"
 		/>

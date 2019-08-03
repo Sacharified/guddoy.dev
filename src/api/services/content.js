@@ -32,3 +32,5 @@ export const fetchContent = async (service) => {
 export const createStoreFromJson = (entries) => {
 	return ContentStore.create({ entries });
 }
+
+export const toProgressiveImageUrl = (url = "") => `${url}?fm=jpg&fl=progressive`;

@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardMedia } from "@material-ui/core";
 import TimeStamp from "components/timestamp";
 import Link from "next/link";
 import { makeStyles } from "@material-ui/core/styles";
+import { toProgressiveImageUrl } from "api/services/content";
 
 const useStyles = makeStyles(theme => {
 	return ({
@@ -21,12 +22,11 @@ const useStyles = makeStyles(theme => {
 
 export default ({ title, date, image, link }) => {
 	const classes = useStyles();
-	console.log(classes);
 	return (
 		<Card>
 			<Link {...link} >
 				<a className={classes.anchor}>
-					{image && <CardMedia image={image} className={classes.media} />}
+					{image && <CardMedia image={toProgressiveImageUrl(image)} className={classes.media} />}
 					<CardHeader title={title} />
 				</a>
 			</Link>
