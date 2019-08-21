@@ -20,9 +20,8 @@ export default class Blog extends React.Component {
     
     render() {
         const { query: { tags = "" } } = this.props;
-        const tagsArr = tags.split(",");
-
-        const items = this.store.queryByTag(tagsArr);
+        const tagsArr = tags.split(",").filter(item => item.length);
+        const items = this.store.queryPostsByTag(tagsArr);
 
         return (
             <Container maxWidth="md">
