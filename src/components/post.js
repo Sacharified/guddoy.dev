@@ -1,6 +1,6 @@
 import Card from "components/card";
 
-export default ({ sys, fields }) => {
+const Post = ({ sys, fields }) => {
     return (
         <Card
             title={fields.title}
@@ -12,4 +12,6 @@ export default ({ sys, fields }) => {
             }}
         />
     );
-}
+};
+
+export default Post;

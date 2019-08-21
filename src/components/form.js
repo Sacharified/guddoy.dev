@@ -33,7 +33,7 @@ const FormComponent = (props) => {
 					title="submit"
 				>
 					Submit
-      			</Button>
+				</Button>
 			</div>
 		</form>
 	);

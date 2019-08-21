@@ -9,8 +9,8 @@ import Post from "components/post";
 import Link from "next/link";
 import { fetchContent, serviceFactory, createStoreFromJson } from "api/services/content";
 
-export default class extends React.Component {
-	static async getInitialProps(props) {
+export default class IndexPage extends React.Component {
+	static async getInitialProps() {
         const service = await serviceFactory();
         const data = await fetchContent(service);
 		return { data };
@@ -30,7 +30,7 @@ export default class extends React.Component {
 					</Typography>
 					<Typography variant="h5" component="h5" gutterBottom>
 						Front-end engineer
-						<a href="https://about.grabyo.com" rel="noreferrer" target="_blank">@grabyo</a>
+						<a href="https://about.grabyo.com" target="_blank" rel="noreferrer noopener">@grabyo</a>
 					</Typography>
 				</Container>
 				<Container maxWidth="md">

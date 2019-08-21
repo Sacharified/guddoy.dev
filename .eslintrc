@@ -1,8 +1,11 @@
 {
     "extends": [
         "eslint:recommended",
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "plugin:jest/recommended",
+        "plugin:cypress/recommended"
     ],
+    "plugins": ["jest", "cypress"],
     "env": {
         "es6": true,
         "browser": true,
@@ -23,6 +26,6 @@
         "quotes": ["error", "double"],
         "no-undef": "error",
         "react/react-in-jsx-scope": false,
-        "react/prop-types": false
+        "react/prop-types": false,
     }
 }
