@@ -29,8 +29,7 @@ export default class IndexPage extends React.Component {
 						Sacha Guddoy
 					</Typography>
 					<Typography variant="h5" component="h5" gutterBottom>
-						Front-end engineer
-						<a href="https://about.grabyo.com" target="_blank" rel="noreferrer noopener">@grabyo</a>
+						Front-end engineer <a href="https://about.grabyo.com" target="_blank" rel="noreferrer noopener">@grabyo</a>
 					</Typography>
 				</Container>
 				<Container maxWidth="md">
