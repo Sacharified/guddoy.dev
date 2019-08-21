@@ -25,8 +25,7 @@ const Card = ({ title, date, image, link }) => {
 		<MaterialCard>
 			<Link {...link} >
 				<a className={classes.anchor}>
-					{image && <CardMedia image={image.fields.file.url} className={classes.media} />}
-					{/* {image && <Image image={image} />} */}
+					{image && <CardMedia image={image.src} className={classes.media} />}
 					<CardHeader title={title} />
 				</a>
 			</Link>

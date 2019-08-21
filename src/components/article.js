@@ -3,16 +3,18 @@ import TimeStamp from "components/timestamp";
 import Typography from "@material-ui/core/Typography";
 import { richTextToComponent } from "utils/text";
 import TagList from "components/tags";
-import Image from "components/image";
 
-const HeroImage = (image) => (
+const HeroImage =  ({ src, description }) => {(
 	<Container maxWidth="md">
-		<Image image={image} />
+		<img
+			src={src}
+			width="100%"
+		/>
 		<Typography variant="caption">
-			{image.description}
+			{description}
 		</Typography>
 	</Container>
-);
+)};
 
 const Header = ({ title, subtitle, date, tags }) => (
 	<>
@@ -36,7 +38,7 @@ const Article = ({ fields, sys }) => {
 	return (
 		<Container component="article" maxWidth="md">
 			<Header title={fields.title} subtitle={fields.subtitle} date={sys.createdAt} tags={fields.tags} />
-			{fields.heroImage.fields && <HeroImage {...fields.heroImage} />}
+			{fields.heroImage && <HeroImage src={fields.heroImage.src} description={fields.heroImage.description} />}
 			<Container maxWidth="md">
 				<Typography variant="body1" component="div" gutterBottom>
 					{richTextToComponent(fields.content)}

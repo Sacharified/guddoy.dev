@@ -5,7 +5,7 @@ const Post = ({ sys, fields }) => {
         <Card
             title={fields.title}
             date={sys.createdAt}
-            image={fields.heroImage.fields && fields.heroImage}
+            image={fields.heroImage}
             link={{
                 href: `/post?id=${sys.id}`,
                 as: `/post/${fields.slug}`
