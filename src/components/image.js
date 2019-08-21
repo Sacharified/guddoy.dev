@@ -8,7 +8,7 @@ const useStyles = makeStyles(() => ({
 	})
 }));
 
-export default ({
+const Image =  ({
 	image: {
         fields: {
             file: {
@@ -41,4 +41,6 @@ export default ({
             />
         </div>
     );
-}
+};
+
+export default Image;
