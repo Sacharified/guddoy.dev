@@ -10,7 +10,7 @@ export default class ContentService {
 	}
 
 	getEntries() {
-		return this.client.getEntries();;
+		return this.client.getEntries();
 	}
 
 	getEntry(id) {

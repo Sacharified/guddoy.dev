@@ -5,7 +5,7 @@ export default ({ sys, fields }) => {
         <Card
             title={fields.title}
             date={sys.createdAt}
-            image={fields.heroImage.fields && fields.heroImage.fields.file.url}
+            image={fields.heroImage.fields && fields.heroImage}
             link={{
                 href: `/post?id=${sys.id}`,
                 as: `/post/${fields.slug}`
