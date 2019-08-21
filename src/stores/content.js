@@ -65,12 +65,12 @@ const Content = types.model("Content", {
 		return self.posts.reduce((memo, { fields: { tags } }) => [...memo, ...tags.filter(tag => !memo.includes(tag))], []);
 	},
 
-	queryByTag(tags = []) {
+	queryPostsByTag(tags = []) {
 		if (tags.length === 0) {
-			return self.entries;
+			return self.posts;
 		}
 
-		return self.entries.filter(entry => !!tags.filter(tag => entry.fields.tags.includes(tag)).length);
+		return self.posts.filter(entry => !!tags.filter(tag => entry.fields.tags.includes(tag)).length);
 	},
 
 	getEntry(id) {
