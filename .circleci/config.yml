@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: cypress/included:3.4.0
+      - image: cypress/included:3.4.1
     steps:
       - checkout
       - restore_cache:
@@ -15,25 +15,29 @@ jobs:
             - dependency-cache-
       - restore_cache:
           keys:
-            - cypress-3.4.0
+            - cypress-3.4.1
       - restore_cache:
           keys:
-            - global-dependency-cache-v1
-      - run: npm install
+            - global-dependency-cache-v2
+      - run: apt-get --assume-yes install jq
+      # - run: apt-get --assume-yes install libvips
+      # - run: apt-get --assume-yes install ghostscript
+      # - run: npm install node-gyp -g
       - run: npm install netlify-cli@2.12.0 -g
+      - run: npm install
+      - run: npm run lint
       - run: npm run test:ci
       - run: npm run export
-      - run: npm run export
-      - run: apt-get --assume-yes install jq
-      - run: npm install netlify-cli@2.12.0 -g
       - run: npm run test-ua:ci
 
       - store_artifacts:
           path: /root/project/cypress/videos/index.js.mp4
           destination: ci-video
+      - store_artifacts:
+          path: /root/.npm/_logs/
+          destination: node-logs
       - store_test_results:
             path: coverage
-
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
@@ -43,6 +47,6 @@ jobs:
           paths:
             - /root/.cache/Cypress
       - save_cache:
-          key: global-dependency-cache-v1
+          key: global-dependency-cache-v2
           paths:
             - /usr/local/lib/node_modules/

@@ -4,18 +4,17 @@ import Typography from "@material-ui/core/Typography";
 import { richTextToComponent } from "utils/text";
 import TagList from "components/tags";
 
-const HeroImage = ({ file: { url, title }, description }) => (
+const HeroImage =  ({ src, description }) => (
 	<Container maxWidth="md">
 		<img
-			src={url}
-			alt={title}
+			src={src}
 			width="100%"
 		/>
 		<Typography variant="caption">
 			{description}
 		</Typography>
 	</Container>
-); 
+);
 
 const Header = ({ title, subtitle, date, tags }) => (
 	<>
@@ -35,11 +34,11 @@ const Header = ({ title, subtitle, date, tags }) => (
 	</>
 );
 
-export default ({ fields, sys }) => {
+const Article = ({ fields, sys }) => {
 	return (
 		<Container component="article" maxWidth="md">
 			<Header title={fields.title} subtitle={fields.subtitle} date={sys.createdAt} tags={fields.tags} />
-			{fields.heroImage.fields && <HeroImage {...fields.heroImage.fields} />}
+			{fields.heroImage && <HeroImage src={fields.heroImage.src} description={fields.heroImage.description} />}
 			<Container maxWidth="md">
 				<Typography variant="body1" component="div" gutterBottom>
 					{richTextToComponent(fields.content)}
@@ -48,3 +47,6 @@ export default ({ fields, sys }) => {
 		</Container>
 	);
 }
+
+
+export default Article;

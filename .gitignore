@@ -6,3 +6,4 @@ dist
 cypress/videos/
 deploy.json
 coverage
+src/static/content

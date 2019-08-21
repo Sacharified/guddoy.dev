@@ -30,9 +30,10 @@ const FormComponent = (props) => {
 					color="primary"
 					type="submit"
 					className={classes.button}
+					title="submit"
 				>
 					Submit
-      </Button>
+				</Button>
 			</div>
 		</form>
 	);

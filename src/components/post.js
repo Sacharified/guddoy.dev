@@ -1,15 +1,17 @@
 import Card from "components/card";
 
-export default ({ sys, fields }) => {
+const Post = ({ sys, fields }) => {
     return (
         <Card
             title={fields.title}
             date={sys.createdAt}
-            image={fields.heroImage.fields && fields.heroImage.fields.file.url}
+            image={fields.heroImage}
             link={{
                 href: `/post?id=${sys.id}`,
                 as: `/post/${fields.slug}`
             }}
         />
     );
-}
+};
+
+export default Post;

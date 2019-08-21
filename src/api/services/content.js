@@ -10,7 +10,7 @@ export default class ContentService {
 	}
 
 	getEntries() {
-		return this.client.getEntries();;
+		return this.client.getEntries();
 	}
 
 	getEntry(id) {
@@ -24,11 +24,6 @@ export const serviceFactory = async () => {
 	return service;
 }
 
-export const fetchContent = async (service) => {
-	const data = await service.getEntries();
-	return data;
-}
-
-export const createStoreFromJson = (entries) => {
-	return ContentStore.create({ entries });
-}
+export const fetchContent = async service => await service.getEntries();
+export const createStoreFromJson = entries => ContentStore.create({ entries });
+export const toProgressiveImageUrl = (url = "") => `${url}?fm=jpg&fl=progressive`;

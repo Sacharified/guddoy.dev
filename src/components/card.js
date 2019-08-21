@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardMedia } from "@material-ui/core";
+import { Card as MaterialCard, CardContent, CardHeader, CardMedia } from "@material-ui/core";
 import TimeStamp from "components/timestamp";
 import Link from "next/link";
 import { makeStyles } from "@material-ui/core/styles";
@@ -19,20 +19,21 @@ const useStyles = makeStyles(theme => {
 	});
 });
 
-export default ({ title, date, image, link }) => {
+const Card = ({ title, date, image, link }) => {
 	const classes = useStyles();
-	console.log(classes);
 	return (
-		<Card>
+		<MaterialCard>
 			<Link {...link} >
 				<a className={classes.anchor}>
-					{image && <CardMedia image={image} className={classes.media} />}
+					{image && <CardMedia image={image.src} className={classes.media} />}
 					<CardHeader title={title} />
 				</a>
 			</Link>
 			<CardContent>
 				<TimeStamp date={date} />
 			</CardContent>
-		</Card>
+		</MaterialCard>
 	);
-}
+};
+
+export default Card;
