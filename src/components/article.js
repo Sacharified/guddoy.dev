@@ -3,40 +3,16 @@ import TimeStamp from "components/timestamp";
 import Typography from "@material-ui/core/Typography";
 import { richTextToComponent } from "utils/text";
 import TagList from "components/tags";
-import dynamic from "next/dynamic";
+import Image from "components/image";
 
-const Lqip = dynamic(() => import("lqip-react"), { ssr: false });
-
-
-const HeroImage = ({
-	file: {
-		url,
-		details: {
-			image: { width, height }
-		}
-	},
-	description,
-	title
-}) => {
-	// const fileName = url.substr(url.lastIndexOf("/", url.lastIndexOf(".")));
-	const fileName = url.split("/").pop();
-	const folder = `/static/content/img/${fileName}`;
-
-	return (
-		<Container maxWidth="md">
-			<Lqip
-				aspectRatio={`${width}x${height}`}
-				thumbnail={`${folder}/image.svg`}
-				src={`${folder}/image.jpeg`}
-				alt={title}
-				width="100%"
-			/>
-			<Typography variant="caption">
-				{description}
-			</Typography>
-		</Container>
-	)
-};
+const HeroImage = (image) => (
+	<Container maxWidth="md">
+		<Image image={image} />
+		<Typography variant="caption">
+			{image.description}
+		</Typography>
+	</Container>
+);
 
 const Header = ({ title, subtitle, date, tags }) => (
 	<>
@@ -56,11 +32,11 @@ const Header = ({ title, subtitle, date, tags }) => (
 	</>
 );
 
-export default ({ fields, sys }) => {
+const Article = ({ fields, sys }) => {
 	return (
 		<Container component="article" maxWidth="md">
 			<Header title={fields.title} subtitle={fields.subtitle} date={sys.createdAt} tags={fields.tags} />
-			{fields.heroImage.fields && <HeroImage {...fields.heroImage.fields} />}
+			{fields.heroImage.fields && <HeroImage {...fields.heroImage} />}
 			<Container maxWidth="md">
 				<Typography variant="body1" component="div" gutterBottom>
 					{richTextToComponent(fields.content)}
@@ -69,3 +45,6 @@ export default ({ fields, sys }) => {
 		</Container>
 	);
 }
+
+
+export default Article;

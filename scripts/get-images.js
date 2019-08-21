@@ -49,7 +49,7 @@ const downloadImage = async (image, location) => {
 };
 
 const downloadImages = async images => {
-    for (image of images) {
+    for (const image of images) {
         await downloadImage(image, PATHS.IMG_ORIGINAL(image.fields.file.fileName));
 	}
 	
@@ -78,7 +78,7 @@ const convertToJpeg = async (buffer, fileName) => {
 
 const convertToSqip = async (path, fileName) => {
 	const writePath = `${PATHS.STATIC}${PATHS.IMG_CONVERTED(fileName, "svg")}`
-	const res = await sqip({ input: path });
+	const res = await sqip({ input: path, numberOfPrimitives: 20 });
 
 	writeFile(writePath, res.svg);
 	return writePath;
