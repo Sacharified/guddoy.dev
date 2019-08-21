@@ -9,21 +9,20 @@ jobs:
       - image: cypress/included:3.4.1
     steps:
       - checkout
-      # - restore_cache:
-      #     keys:
-      #       - dependency-cache-{{ checksum "package.json" }}
-      #       - dependency-cache-
-      # - restore_cache:
-      #     keys:
-      #       - cypress-3.4.1
-      # - restore_cache:
-      #     keys:
-      #       - global-dependency-cache-v2
+      - restore_cache:
+          keys:
+            - dependency-cache-{{ checksum "package.json" }}
+            - dependency-cache-
+      - restore_cache:
+          keys:
+            - cypress-3.4.1
+      - restore_cache:
+          keys:
+            - global-dependency-cache-v2
       - run: apt-get --assume-yes install jq
-      - run: apt-get --assume-yes install libvips
-      - run: apt-get --assume-yes install ghostscript
-      - run: npm -v && node -v
-      - run: npm install node-gyp -g
+      # - run: apt-get --assume-yes install libvips
+      # - run: apt-get --assume-yes install ghostscript
+      # - run: npm install node-gyp -g
       - run: npm install netlify-cli@2.12.0 -g
       - run: npm install
       - run: npm run lint
@@ -39,7 +38,6 @@ jobs:
           destination: node-logs
       - store_test_results:
             path: coverage
-
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
