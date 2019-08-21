@@ -4,7 +4,6 @@ import App, { Container } from "next/app";
 import Head from "next/head";
 import IconButton from "components/iconbutton";
 import GithubIcon from "static/img/github-circle.svg";
-import TwitterIcon from "static/img/twitter.svg";
 import HomeIcon from "material-design-icons/action/svg/production/ic_home_24px.svg";
 import Link from "next/link";
 import AppBar from "@material-ui/core/AppBar";
@@ -24,8 +23,9 @@ class Layout extends React.Component {
 						<Link href="/">
 							<a><IconButton title="home" icon={HomeIcon} /></a>
 						</Link>
-						<IconButton title="github" icon={GithubIcon} onClick={() => window.open("https://github.com/Sacharified/guddoy.dev")} />
-						<IconButton title="twitter" icon={TwitterIcon} onClick={() => window.open("https://twitter.com/Sacharified")} />
+						<Link href="https://github.com/Sacharified/guddoy.dev">
+							<a target="_blank"><IconButton title="github" icon={GithubIcon} /></a>
+						</Link>
 						<Typography variant="h6" align="right" style={{ marginLeft: "auto" }}>Sacha Guddoy</Typography>
 					</Toolbar>
 				</AppBar>
