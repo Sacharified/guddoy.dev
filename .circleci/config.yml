@@ -13,18 +13,18 @@ jobs:
       #     keys:
       #       - dependency-cache-{{ checksum "package.json" }}
       #       - dependency-cache-
-      - restore_cache:
-          keys:
-            - cypress-3.4.1
-      - restore_cache:
-          keys:
-            - global-dependency-cache-v2
+      # - restore_cache:
+      #     keys:
+      #       - cypress-3.4.1
+      # - restore_cache:
+      #     keys:
+      #       - global-dependency-cache-v2
       - run: apt-get --assume-yes install jq
       - run: apt-get --assume-yes install libvips
       - run: apt-get --assume-yes install ghostscript
-      - run: npm install
       - run: npm install node-gyp -g
       - run: npm install netlify-cli@2.12.0 -g
+      - run: npm install
       - run: npm run lint
       - run: npm run test:ci
       - run: npm run export
