@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: cypress/included:3.4.0
+      - image: cypress/included:3.4.1
     steps:
       - checkout
       # - restore_cache:
