@@ -24,10 +24,10 @@ jobs:
       - run: apt-get --assume-yes install ghostscript
       - run: npm -v && node -v
       - run: npm install node-gyp -g
-      # - run: npm install netlify-cli@2.12.0 -g
+      - run: npm install netlify-cli@2.12.0 -g
       - run: npm install
-      # - run: npm run lint
-      # - run: npm run test:ci
+      - run: npm run lint
+      - run: npm run test:ci
       - run: npm run export
       - run: npm run test-ua:ci
 
