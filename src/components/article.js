@@ -4,7 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import { richTextToComponent } from "utils/text";
 import TagList from "components/tags";
 
-const HeroImage =  ({ src, description }) => {(
+const HeroImage =  ({ src, description }) => (
 	<Container maxWidth="md">
 		<img
 			src={src}
@@ -14,7 +14,7 @@ const HeroImage =  ({ src, description }) => {(
 			{description}
 		</Typography>
 	</Container>
-)};
+);
 
 const Header = ({ title, subtitle, date, tags }) => (
 	<>

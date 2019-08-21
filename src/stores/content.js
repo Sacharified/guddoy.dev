@@ -1,5 +1,5 @@
 import { types } from "mobx-state-tree";
-import { toProgressiveImageUrl } from "api/services/content";
+import { toProgressiveImageUrl } from "../api/services/content";
 
 const Image = types.model("Image", {
 	url: "",
