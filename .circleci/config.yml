@@ -21,6 +21,7 @@ jobs:
             - global-dependency-cache-v2
       - run: apt-get --assume-yes install jq
       - run: apt-get --assume-yes install libvips
+      - run: apt-get --assume-yes install gsl-ref-psdoc gsl-doc-pdf gsl-doc-info gsl-ref-html libvips-doc libvips-tools poppler-utils ghostscript fonts-japanese-mincho fonts-ipafont-mincho fonts-japanese-gothic fonts-ipafont-gothic fonts-nanum
       - run: npm install
       - run: npm install netlify-cli@2.12.0 -g
       - run: npm run test:ci
