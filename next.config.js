@@ -7,7 +7,13 @@ const path = require("path");
 const getContent = require("./scripts/get-content");
 // const getImages = require("./scripts/get-images");
 
-const { CONTENTFUL_ACCESS_TOKEN, CONTENTFUL_SPACE_ID, NODE_ENV } = process.env;
+const {
+	CONTENTFUL_ACCESS_TOKEN,
+	CONTENTFUL_SPACE_ID,
+	OXFORD_DICTIONARY_APP_ID,
+	OXFORD_DICTIONARY_APP_KEY,
+	NODE_ENV
+} = process.env;
 module.exports = withImages({
 	webpack(config) {
 		return merge({
@@ -22,7 +28,9 @@ module.exports = withImages({
 	publicRuntimeConfig: {
 		mode: NODE_ENV,
 		CONTENTFUL_ACCESS_TOKEN,
-		CONTENTFUL_SPACE_ID
+		CONTENTFUL_SPACE_ID,
+		OXFORD_DICTIONARY_APP_ID,
+		OXFORD_DICTIONARY_APP_KEY,
 	},
 	exportPathMap: async function () {
 		const paths = {

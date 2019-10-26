@@ -24,6 +24,6 @@ export const serviceFactory = async () => {
 	return service;
 }
 
-export const fetchContent = async service => await service.getEntries();
+export const fetchContent = service => service.getEntries();
 export const createStoreFromJson = entries => ContentStore.create({ entries });
 export const toProgressiveImageUrl = (url = "") => `${url}?fm=jpg&fl=progressive`;
