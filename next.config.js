@@ -36,6 +36,7 @@ module.exports = withImages({
 		const paths = {
 			"/": { page: "/" },
 			"/blog": { page: "/blog" },
+			"/anagram": { page: "/anagram" },
 		};
 		const { items } = await getContent();
 		// await getImages(Asset);
