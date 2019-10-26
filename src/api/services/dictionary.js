@@ -18,9 +18,9 @@ export const getDefinition = async (word = "") => {
         dictCache[word] = axios.get(baseUrl + word, requestConfig);
         const { data } = await dictCache[word];
         dictCache[word] = Promise.resolve(data);
-        return data;
+        return dictCache[word];
     } catch(e) {
-        dictCache[word] = Promise.reject({ error: true });
+        dictCache[word] = Promise.reject({ error: true, id: word });
         return dictCache[word];
     }
 }

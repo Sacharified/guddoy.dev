@@ -49,10 +49,10 @@ class AnagramFinder extends React.Component {
 					<TextField
 						label="Characters"
 						onChange={this.findAnagrams}
-						value={anagramQuery}
+						name="anagram"
 					/>
 				</InputContainer>
-				<ul>
+				<ul id="ua-anagram-list">
 					{anagrams.length > 0 ?
 						anagrams.map(word => (
 							<li
@@ -60,10 +60,10 @@ class AnagramFinder extends React.Component {
 								onMouseOver={() => this.showDefinition(word)}
 							>
 								{word}
-								{definition && definition.error ? <p>{"No definition found"}</p> :
+								{definition && definition.id === word && definition.error ? <p>{"No definition found"}</p> :
 									<>
 										{definition && definition.id === word &&
-											<Container>
+											<Container id="ua-definition">
 												<Paper>
 													<Container>
 														{definition.etymologies && <>
