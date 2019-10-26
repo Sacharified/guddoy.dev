@@ -9,7 +9,7 @@ import Paper from "@material-ui/core/Paper";
 import { getDefinition } from "api/services/dictionary";
 
 class AnagramFinder extends React.Component {
-    state = {
+	state = {
 		anagrams: [],
 		anagramQuery: "",
 		definitionErrors: []
@@ -75,7 +75,7 @@ class AnagramFinder extends React.Component {
 																	{definition.etymologies[0]}
 																</Typography>
 															</Container>
-                                                            <Divider />
+															<Divider />
 														</>}
 														<Container>
 															<Typography variant="h4" component="h4" gutterBottom>
