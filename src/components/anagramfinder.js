@@ -35,7 +35,6 @@ class AnagramFinder extends React.Component {
 			}
 		} catch (e) {
 			this.setState(() => ({ definition: e }))
-			console.log(`No definition found`, e);
 		}
 	}
 
