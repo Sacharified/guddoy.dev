@@ -10,6 +10,7 @@
     "test-ua": "npm run start > /dev/null | CYPRESS_baseUrl=http://localhost:3000 cypress open",
     "test-ua:ci": "netlify deploy --json > deploy.json && CYPRESS_baseUrl=$(jq .deploy_url deploy.json | tr -d '\"') cypress run",
     "dev": "next ./src",
+    "netlify-dev": "netlify dev",
     "build": "next build ./src",
     "start": "npm run export && http-server ./out -p 3000 ",
     "export": "npm run build && next export ./src --outdir='./out'",

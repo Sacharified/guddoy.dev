@@ -40,6 +40,7 @@ class AnagramFinder extends React.Component {
 
 	render() {
 		const { anagrams, anagramQuery, definition } = this.state;
+		
 		return (
 			<Container maxWidth="sm">
 				<Typography variant="h4" component="h4" gutterBottom>
