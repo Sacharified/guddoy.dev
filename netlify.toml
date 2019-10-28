@@ -1,7 +1,7 @@
 [build]
   command = "npm run export"
   publish = "out"
-  functions = "functions"
+  functions = "out/functions"
 
 # Production context: All deploys to the main
 # repository branch will inherit these settings.
