@@ -32,7 +32,10 @@ jobs:
 
       - store_artifacts:
           path: /root/project/cypress/videos/index.js.mp4
-          destination: ci-video
+          destination: index-ua-test-video
+      - store_artifacts:
+          path: /root/project/cypress/videos/anagram.js.mp4
+          destination: anagram-ua-test-video
       - store_artifacts:
           path: /root/.npm/_logs/
           destination: node-logs
