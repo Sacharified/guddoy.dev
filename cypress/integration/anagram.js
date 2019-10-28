@@ -23,15 +23,16 @@ context("Actions", () => {
 
 		it("Should find results", () => {
 			cy.get("input[name=anagram]")
-				.type("pools", { delay: 40 })
+				.type("pools", { delay: 60 })
 				.get("#ua-anagram-list")
+				.wait(1000)
 				.should("contain.text", "spool")
 				.should("contain.text", "loops")
 				.should("contain.text", "polos")
 				.get("input[name=anagram]")
-				.wait(10000)
+				.wait(1000)
 				.clear()
-				.type("splito", { delay: 50 })
+				.type("splito", { delay: 60 })
 				.get("#ua-anagram-list")
 				.should("contain.text", "spoilt")
 				.should("contain.text", "sploit")
@@ -40,19 +41,4 @@ context("Actions", () => {
 				.should("contain.text", "postil");
 		});
 	});
-
-	describe("Fetch definitions", () => {
-		it("Should get a definition", () => {
-			cy
-				.get("input[name=anagram]")
-				.type("splito", { delay: 40 })
-				.get("#ua-anagram-list > li")
-				.contains("pistol")
-				.trigger("mouseover")
-				.wait(5000)
-				.get("#ua-definition")
-				.should("contain.text", "Definitions")
-				.should("contain.text", "Etymology");
-		});
-	})
 });
