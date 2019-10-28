@@ -48,6 +48,7 @@ context("Actions", () => {
 				.get("#ua-anagram-list > li")
 				.contains("pistol")
 				.trigger("mouseover")
+				.wait(5000)
 				.get("#ua-definition")
 				.should("contain.text", "Definitions")
 				.should("contain.text", "Etymology");
