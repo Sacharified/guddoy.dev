@@ -9,7 +9,7 @@ import Paper from "@material-ui/core/Paper";
 import { getDefinition } from "api/services/dictionary";
 
 class AnagramFinder extends React.Component {
-    state = {
+	state = {
 		anagrams: [],
 		anagramQuery: "",
 		definitionErrors: []
@@ -40,6 +40,7 @@ class AnagramFinder extends React.Component {
 
 	render() {
 		const { anagrams, anagramQuery, definition } = this.state;
+		
 		return (
 			<Container maxWidth="sm">
 				<Typography variant="h4" component="h4" gutterBottom>
@@ -49,10 +50,10 @@ class AnagramFinder extends React.Component {
 					<TextField
 						label="Characters"
 						onChange={this.findAnagrams}
-						value={anagramQuery}
+						name="anagram"
 					/>
 				</InputContainer>
-				<ul>
+				<ul id="ua-anagram-list">
 					{anagrams.length > 0 ?
 						anagrams.map(word => (
 							<li
@@ -60,10 +61,10 @@ class AnagramFinder extends React.Component {
 								onMouseOver={() => this.showDefinition(word)}
 							>
 								{word}
-								{definition && definition.error ? <p>{"No definition found"}</p> :
+								{definition && definition.id === word && definition.error ? <p>{"No definition found"}</p> :
 									<>
 										{definition && definition.id === word &&
-											<Container>
+											<Container id="ua-definition">
 												<Paper>
 													<Container>
 														{definition.etymologies && <>
@@ -75,7 +76,7 @@ class AnagramFinder extends React.Component {
 																	{definition.etymologies[0]}
 																</Typography>
 															</Container>
-                                                            <Divider />
+															<Divider />
 														</>}
 														<Container>
 															<Typography variant="h4" component="h4" gutterBottom>
