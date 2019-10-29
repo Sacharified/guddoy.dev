@@ -11,14 +11,14 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - dependency-cache-{{ checksum "package.json" }}
+            - dependency-cache-{{ checksum "package-lock.json" }}
             - dependency-cache-
       - restore_cache:
           keys:
-            - cypress-3.4.1
+            - cypress-3.5.0
       - restore_cache:
           keys:
-            - global-dependency-cache-v2
+            - global-dependency-cache-v3
       - run: apt-get --assume-yes install jq
       # - run: apt-get --assume-yes install libvips
       # - run: apt-get --assume-yes install ghostscript
@@ -46,10 +46,10 @@ jobs:
           paths:
             - ./node_modules
       - save_cache:
-          key: cypress-3.4.1
+          key: cypress-3.5.0
           paths:
             - /root/.cache/Cypress
       - save_cache:
-          key: global-dependency-cache-v2
+          key: global-dependency-cache-v3
           paths:
             - /usr/local/lib/node_modules/
