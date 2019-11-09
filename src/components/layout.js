@@ -25,13 +25,14 @@ const footerStyles = makeStyles(theme => {
 	return {
 		container: {
 			background: theme.palette.grey[300],
-			padding: theme.spacing(2)
+			padding: theme.spacing(3)
 		},
 
 		a: {
 			textDecoration: "none",
 			display: "block",
 			color: theme.palette.text.primary,
+			marginTop: theme.spacing(1),
 			marginBottom: theme.spacing(1),
 			
 			"&:visited": {
