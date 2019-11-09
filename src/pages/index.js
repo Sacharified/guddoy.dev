@@ -7,20 +7,9 @@ import { Container } from "components/layout";
 import Grid from "components/grid";
 import Post from "components/post";
 import Link from "next/link";
-import { fetchContent, serviceFactory, createStoreFromJson } from "api/services/content";
-
-export default class IndexPage extends React.Component {
-	static async getInitialProps() {
-        const service = await serviceFactory();
-        const data = await fetchContent(service);
-		return { data };
-	}
-	
-	constructor(props) {
-		super(props);
-		this.store = createStoreFromJson(props.data.items);
-	}
-
+import { inject } from "mobx-react";
+@inject("store")
+class IndexPage extends React.Component {
 	render() {
 		return (
 			<>
@@ -38,9 +27,9 @@ export default class IndexPage extends React.Component {
 							<a>Blog</a>
 						</Typography>
 					</Link>
-					<Grid items={this.store.posts} component={Post} />
+					<Grid items={this.props.store.posts} component={Post} />
 				</Container>
-				<Container maxWidth="sm">
+				<Container maxWidth="sm" id="contact">
 					<Paper>
 						<Container maxWidth="sm">
 							<Typography variant="h4" component="h4" gutterBottom>
@@ -87,3 +76,5 @@ export default class IndexPage extends React.Component {
 		);
 	}
 }
+
+export default IndexPage;

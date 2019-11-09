@@ -43,12 +43,6 @@ const PostEntryFields = types.model("PostEntryFields", {
 	tags: types.array(types.string)
 });
 
-const LinkListFields = types.model("LinkListFields", {
-	id: "",
-	listName: "",
-	links: types.array(types.frozen({}))
-});
-
 const CodeEntryFields = types.model("CodeEntryFields", {
 	title: "",
 	code: ""
@@ -85,6 +79,14 @@ const Entry = types.model("Entry", {
 
 	get updatedAt() {
 		return new Date(self.sys.createdAt);
+	},
+
+	get link() {
+		if (self.contentType === "post") {
+			return "/post/" + self.fields.slug;
+		}
+
+		return "";
 	}
 }));
 
@@ -104,6 +106,14 @@ const Content = types.model("Content", {
 
 		get tags() {
 			return self.posts.reduce((memo, { fields: { tags } }) => [...memo, ...tags.filter(tag => !memo.includes(tag))], []);
+		},
+
+		get linkLists() {
+			return self.filterEntriesByType("linkList");
+		},
+
+		get footerNavLinkList() {
+			return this.linkLists.filter(({ fields: { id } }) => id === "nav-footer").pop();
 		},
 
 		filterEntriesByType(type, entries = self.entries) {
@@ -136,6 +146,12 @@ const Content = types.model("Content", {
 			return self.entries.find(entry => entry.sys.id === id);
 		}
 	}
+});
+
+const LinkListFields = types.model("LinkListFields", {
+	id: "",
+	listName: "",
+	links: types.array(Entry)
 });
 
 export default Content;
