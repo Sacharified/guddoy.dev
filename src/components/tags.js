@@ -1,5 +1,4 @@
 import { Chip } from "@material-ui/core";
-import Link from "next/link";
 import { makeStyles } from "@material-ui/core/styles";
 import { useRouter } from "next/router";
 
@@ -13,26 +12,29 @@ const Tag = ({ tag, active }) => {
     const router = useRouter();
     const classes = useStyles();
 
-    const toggleTag = (tag) => {
+    const toggleTag = tag => {
         const { tags = "" } = router.query;
-        const href = { pathname: router.pathname, query: { ...router.query, tags: `${tags},${tag}` } };
-        if (tags.includes(tag)) {
-            href.query.tags =  tags.split(",").filter(item => item !== tag).join("");
+        const tagsArr = tags.length ? tags.split(",") : [];
+        const tagIndex = tagsArr.indexOf(tag);
+        if (tagIndex === -1) {
+            tagsArr.push(tag);
+        } else {
+            tagsArr.splice(tagIndex, 1);
         }
+        const newTags = tagsArr.join(",");
+        const href = { pathname: router.pathname, query: { ...router.query, tags: newTags } };
         router.push(href);
     }
 
     return (
-        <Link href={{ pathname: "/blog", query: { tags: tag }}} >
-            <Chip
-                size="small"
-                label={tag}
-                key={tag}
-                className={classes.chip}
-                color={active ? "primary" : "default"}
-                onClick={() => toggleTag(tag)}
-            />
-        </Link>
+        <Chip
+            size="small"
+            label={tag}
+            key={tag}
+            className={classes.chip}
+            color={active ? "primary" : "default"}
+            onClick={() => toggleTag(tag)}
+        />
     );
 };
 
