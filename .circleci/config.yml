@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: cypress/included:3.4.1
+      - image: cypress/included:3.5.0
     steps:
       - checkout
       - restore_cache:
@@ -15,12 +15,16 @@ jobs:
             - dependency-cache-
       - restore_cache:
           keys:
+            - cypress-3.5.0
+      - restore_cache:
+          keys:
             - global-dependency-cache-v3
       - run: apt-get --assume-yes install jq
       # - run: apt-get --assume-yes install libvips
       # - run: apt-get --assume-yes install ghostscript
       # - run: npm install node-gyp -g
       - run: npm install netlify-cli@2.12.0 -g
+      - run: npm install cypress@3.5.0 -g
       - run: npm install
       - run: npm run lint
       - run: npm run test:ci
