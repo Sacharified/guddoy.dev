@@ -54,13 +54,15 @@ const Entry = types.model("Entry", {
 			case "post":
 				return PostEntryFields;
 			case "linkList":
-				return LinkListFields;
+				return LinkListEntryFields;
+			case "link":
+				return LinkEntryFields;
 			case "codeBlock":
 				return CodeEntryFields;
 			case "siteMeta":
 				return types.frozen({});
 			default:
-				throw new Error("Cannot reconcile Entry type", fields)
+				throw new Error("Cannot reconcile Entry type", fields.type)
 		}
 	}}),
 	sys: types.frozen({})
@@ -86,7 +88,15 @@ const Entry = types.model("Entry", {
 			return "/post/" + self.fields.slug;
 		}
 
+		if (self.contentType === "link") {
+			return self.fields.url;
+		}
+
 		return "";
+	},
+
+	get linkTitle() {
+		return self.fields.title;
 	}
 }));
 
@@ -148,10 +158,16 @@ const Content = types.model("Content", {
 	}
 });
 
-const LinkListFields = types.model("LinkListFields", {
+const LinkListEntryFields = types.model("LinkListEntryFields", {
 	id: "",
 	listName: "",
 	links: types.array(Entry)
 });
 
+const LinkEntryFields = types.model("CodeEntryFields", {
+	url: "",
+	title: "",
+	rel: "",
+	target: ""
+});
 export default Content;

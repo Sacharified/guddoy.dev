@@ -32,6 +32,7 @@ const footerStyles = makeStyles(theme => {
 			textDecoration: "none",
 			display: "block",
 			color: theme.palette.text.primary,
+			marginBottom: theme.spacing(1),
 			
 			"&:visited": {
 				color: theme.palette.text.primary,
@@ -48,9 +49,9 @@ export const Footer = inject("store")(({ links }) => {
 	const classes = footerStyles();
 	return (
 		<footer className={classes.container}>
-				{links.map(({ link, fields: { title } }) => (
-					<Link href={link} key={link} >
-						<a className={classes.a}>{title}</a>
+				{links.map(({ link, linkTitle }) => (
+					<Link href={link} key={link}>
+						<a className={classes.a}>{linkTitle}</a>
 					</Link>
 				))}
 		</footer>
