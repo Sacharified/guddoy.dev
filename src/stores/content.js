@@ -34,7 +34,7 @@ const Image = types.model("Image", {
 	}
 }));
 
-const EntryFields = types.model("EntryFields", {
+const PostEntryFields = types.model("PostEntryFields", {
 	content: types.frozen({}),
 	heroImage: types.optional(Image, {}),
 	slug: "",
@@ -43,9 +43,36 @@ const EntryFields = types.model("EntryFields", {
 	tags: types.array(types.string)
 });
 
+const LinkListFields = types.model("LinkListFields", {
+	id: "",
+	listName: "",
+	links: types.array(types.frozen({}))
+});
+
+const CodeEntryFields = types.model("CodeEntryFields", {
+	title: "",
+	code: ""
+});
+
 const Entry = types.model("Entry", {
-	fields: EntryFields,
+	fields: types.union({ dispatcher: (fields) => {
+		switch(fields.type) {
+			case "post":
+				return PostEntryFields;
+			case "linkList":
+				return LinkListFields;
+			case "codeBlock":
+				return CodeEntryFields;
+			case "siteMeta":
+				return types.frozen({});
+			default:
+				throw new Error("Cannot reconcile Entry type", fields)
+		}
+	}}),
 	sys: types.frozen({})
+})
+.preProcessSnapshot(snapshot => {
+	return { ...snapshot, fields: { ...snapshot.fields, type: snapshot.sys.contentType.sys.id } }
 })
 .views(self => ({
 	get contentType() {
@@ -68,7 +95,7 @@ const Content = types.model("Content", {
 	
 	return {
 		get posts() {
-			return self.entries.filter(entry => entry.contentType === "post");
+			return self.filterEntriesByType("post", self.entries);
 		},
 
 		get sortedPosts() {
@@ -77,6 +104,10 @@ const Content = types.model("Content", {
 
 		get tags() {
 			return self.posts.reduce((memo, { fields: { tags } }) => [...memo, ...tags.filter(tag => !memo.includes(tag))], []);
+		},
+
+		filterEntriesByType(type, entries = self.entries) {
+			return entries.filter(entry => entry.contentType === type);
 		},
 
 		queryPostsByTag(tags = []) {
