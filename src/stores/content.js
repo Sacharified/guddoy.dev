@@ -50,32 +50,61 @@ const Entry = types.model("Entry", {
 .views(self => ({
 	get contentType() {
 		return self.sys.contentType.sys.id;
+	},
+
+	get createdAt() {
+		return new Date(self.sys.createdAt);
+	},
+
+	get updatedAt() {
+		return new Date(self.sys.createdAt);
 	}
 }));
 
 const Content = types.model("Content", {
 	entries: types.array(Entry)
 })
-.views(self => ({
-	get posts() {
-		return self.entries.filter(entry => entry.contentType === "post");
-	},
+.views(self => {
+	
+	return {
+		get posts() {
+			return self.entries.filter(entry => entry.contentType === "post");
+		},
 
-	get tags() {
-		return self.posts.reduce((memo, { fields: { tags } }) => [...memo, ...tags.filter(tag => !memo.includes(tag))], []);
-	},
+		get sortedPosts() {
+			return self.sortPostsByCreationDate(self.posts);
+		},
 
-	queryPostsByTag(tags = []) {
-		if (tags.length === 0) {
-			return self.posts;
+		get tags() {
+			return self.posts.reduce((memo, { fields: { tags } }) => [...memo, ...tags.filter(tag => !memo.includes(tag))], []);
+		},
+
+		queryPostsByTag(tags = []) {
+			if (tags.length === 0) {
+				return self.sortedPosts;
+			}
+
+			const res = self.sortedPosts
+				.filter(entry => !!tags.filter(tag => entry.fields.tags.includes(tag)).length);
+			
+
+			return res;
+		},
+
+		sortPosts(sortKey, posts = self.posts) {
+			return [...posts].sort((a, b) => {
+				return a[sortKey] < b[sortKey] ? 1 : -1;
+			});
+		},
+
+		sortPostsByCreationDate(posts = self.posts) {
+			return self.sortPosts("createdAt", posts)
+		},
+
+		getEntry(id) {
+			return self.entries.find(entry => entry.sys.id === id);
 		}
-
-		return self.posts.filter(entry => !!tags.filter(tag => entry.fields.tags.includes(tag)).length);
-	},
-
-	getEntry(id) {
-		return self.entries.find(entry => entry.sys.id === id);
 	}
-}));
+});
 
 export default Content;
