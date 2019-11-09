@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: cypress/included:3.4.1
+      - image: cypress/base:10
     steps:
       - checkout
       - restore_cache:
@@ -24,6 +24,7 @@ jobs:
       # - run: apt-get --assume-yes install ghostscript
       # - run: npm install node-gyp -g
       - run: npm install netlify-cli@2.12.0 -g
+      - run: npm install -g cypress@3.5.0
       - run: npm install
       - run: npm run lint
       - run: npm run test:ci
