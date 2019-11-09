@@ -23,7 +23,7 @@ context("Actions", () => {
 
 		it("Should find results", () => {
 			cy.get("input[name=anagram]")
-				.type("pools", { delay: 60 })
+				.type("pools", { delay: 200 })
 				.get("#ua-anagram-list")
 				.wait(1000)
 				.should("contain.text", "spool")
@@ -32,7 +32,7 @@ context("Actions", () => {
 				.get("input[name=anagram]")
 				.wait(1000)
 				.clear()
-				.type("splito", { delay: 60 })
+				.type("splito", { delay: 200 })
 				.get("#ua-anagram-list")
 				.should("contain.text", "spoilt")
 				.should("contain.text", "sploit")
