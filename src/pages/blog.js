@@ -1,27 +1,17 @@
 import React from "react";
 import Grid from "components/grid";
 import Typography from "@material-ui/core/Typography";
-import { fetchContent, createStoreFromJson } from "api/services/content";
-import { serviceFactory } from "api/services/content";
 import { Container } from "components/layout";
 import TagList from "components/tags";
 import Post from "components/post";
-export default class Blog extends React.Component {
-    static async getInitialProps({ query }) {
-        const service = await serviceFactory();
-        const data = await fetchContent(service);
-		return { data, query };
-    }
+import { inject } from "mobx-react";
 
-    constructor(props) {
-		super(props);
-		this.store = createStoreFromJson(props.data.items);
-	}
-    
+@inject("store")
+class Blog extends React.Component {
     render() {
-        const { query: { tags = "" } } = this.props;
+        const { query: { tags = "" }, store } = this.props;
         const tagsArr = tags.split(",").filter(item => item.length);
-        const items = this.store.queryPostsByTag(tagsArr);
+        const items = store.queryPostsByTag(tagsArr);
 
         return (
             <Container maxWidth="md">
@@ -30,7 +20,7 @@ export default class Blog extends React.Component {
                 </Typography>
                 <Container maxWidth="md">
                     <Typography variant="caption" display="inline">Tags:</Typography>
-                    <TagList tags={this.store.tags} activeTags={tagsArr} />
+                    <TagList tags={store.tags} activeTags={tagsArr} />
                 </Container>
                 <Container maxWidth="md">
                     <Grid items={items} component={Post} />
@@ -39,3 +29,4 @@ export default class Blog extends React.Component {
         );
     }
 }
+export default Blog;

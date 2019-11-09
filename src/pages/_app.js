@@ -1,18 +1,22 @@
 import React from "react";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import { Provider, inject } from "mobx-react"
 import App, { Container } from "next/app";
 import Head from "next/head";
+import Link from "next/link";
+import { fetchContent, serviceFactory, createStoreFromJson } from "api/services/content";
+import AppBar from "@material-ui/core/AppBar";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Toolbar from "@material-ui/core/Toolbar";
+import { Footer } from "components/layout";
 import IconButton from "components/iconbutton";
+import Typography from "@material-ui/core/Typography";
 import GithubIcon from "static/img/github-circle.svg";
 import HomeIcon from "material-design-icons/action/svg/production/ic_home_24px.svg";
-import Link from "next/link";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 
+@inject("store")
 class Layout extends React.Component {
 	render() {
-		const { children } = this.props;
+		const { children, store } = this.props;
 		return (
 			<>
 				<Head>
@@ -24,7 +28,7 @@ class Layout extends React.Component {
 							<a><IconButton title="home" icon={HomeIcon} /></a>
 						</Link>
 						<Link href="https://github.com/Sacharified/guddoy.dev">
-							<a target="_blank"><IconButton title="github" icon={GithubIcon} /></a>
+							<a rel="noopener" target="_blank"><IconButton title="github" icon={GithubIcon} /></a>
 						</Link>
 						<Typography variant="h6" align="right" style={{ marginLeft: "auto" }}>Sacha Guddoy</Typography>
 					</Toolbar>
@@ -32,12 +36,31 @@ class Layout extends React.Component {
 				<div className="layout" style={{ marginTop: "100px" }}>
 					{children}
 				</div>
+				<Footer links={store.footerNavLinkList.fields.links} />
 			</>
 		);
 	}
 }
 
 class MyApp extends App {
+	static async getInitialProps({ Component, ctx }) {
+		const service = await serviceFactory();
+		const data = await fetchContent(service);
+		let pageProps = {}
+		if (Component.getInitialProps) {
+			pageProps = await Component.getInitialProps(ctx)
+		}
+		return {
+			data,
+			pageProps
+		};
+	}
+
+	constructor(props) {
+		super(props);
+		this.store = createStoreFromJson(props.data.items);
+	}
+
 	render() {
 		const { Component, router, pageProps } = this.props;
 		return (
@@ -45,10 +68,12 @@ class MyApp extends App {
 				<Head>
 					<title>Sacha Guddoy</title>
 				</Head>
-				<Layout>
-					<CssBaseline />
-					<Component query={router.query} {...pageProps} />
-				</Layout>
+				<Provider store={this.store}>
+					<Layout>
+						<CssBaseline />
+						<Component query={router.query} {...pageProps} />
+					</Layout>
+				</Provider>
 			</Container>
 		);
 	}
