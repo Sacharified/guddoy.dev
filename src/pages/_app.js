@@ -24,7 +24,7 @@ class Layout extends React.Component {
 							<a><IconButton title="home" icon={HomeIcon} /></a>
 						</Link>
 						<Link href="https://github.com/Sacharified/guddoy.dev">
-							<a target="_blank"><IconButton title="github" icon={GithubIcon} /></a>
+							<a rel="noopener" target="_blank"><IconButton title="github" icon={GithubIcon} /></a>
 						</Link>
 						<Typography variant="h6" align="right" style={{ marginLeft: "auto" }}>Sacha Guddoy</Typography>
 					</Toolbar>
