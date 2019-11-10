@@ -1,13 +1,11 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import Paper from "@material-ui/core/Paper";
-import Form, { InputContainer } from "components/form";
 import { Container } from "components/layout";
 import Grid from "components/grid";
 import Post from "components/post";
 import Link from "next/link";
 import { inject } from "mobx-react";
+
 @inject("store")
 class IndexPage extends React.Component {
 	render() {
@@ -28,49 +26,6 @@ class IndexPage extends React.Component {
 						</Typography>
 					</Link>
 					<Grid items={this.props.store.posts} component={Post} />
-				</Container>
-				<Container maxWidth="sm" id="contact">
-					<Paper>
-						<Container maxWidth="sm">
-							<Typography variant="h4" component="h4" gutterBottom>
-								Get in touch
-							</Typography>
-							<Form name="contact" method="POST" data-netlify="true">
-								<input type="hidden" name="form-name" value="contact" />
-								<InputContainer>
-									<TextField
-										id="nameInput"
-										name="name"
-										label="Name"
-										required
-										fullWidth
-									/>
-								</InputContainer>
-								<InputContainer>
-									<TextField
-										id="emailInput"
-										name="email"
-										label="Email Address"
-										type="email"
-										required
-										fullWidth
-									/>
-								</InputContainer>
-								<InputContainer>
-									<TextField
-										id="messageInput"
-										name="message"
-										label="Message"
-										required
-										multiline
-										rows="3"
-										rowmdax="10"
-										fullWidth
-									/>
-								</InputContainer>
-							</Form>
-						</Container>
-					</Paper>
 				</Container>
 			</>
 		);
