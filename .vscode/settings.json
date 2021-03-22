@@ -11,8 +11,14 @@
         "titleBar.inactiveForeground": "#e7e7e799",
         "statusBar.background": "#010200",
         "statusBarItem.hoverBackground": "#1a3500",
-        "statusBar.foreground": "#e7e7e7"
+        "statusBar.foreground": "#e7e7e7",
+        "activityBar.activeBackground": "#1a3500",
+        "activityBar.activeBorder": "#005ebf"
     },
     "eslint.enable": true,
-    "peacock.color": "#010200"
+    "peacock.color": "#010200",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
 }

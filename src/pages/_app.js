@@ -12,6 +12,7 @@ import IconButton from "components/iconbutton";
 import Typography from "@material-ui/core/Typography";
 import GithubIcon from "static/img/github-circle.svg";
 import HomeIcon from "material-design-icons/action/svg/production/ic_home_24px.svg";
+import "isomorphic-unfetch";
 
 @inject("store")
 class Layout extends React.Component {
