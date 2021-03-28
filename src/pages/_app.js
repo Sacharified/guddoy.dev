@@ -1,6 +1,6 @@
 import React from "react";
 import { Provider, inject } from "mobx-react"
-import App, { Container } from "next/app";
+import App from "next/app";
 import Head from "next/head";
 import Link from "next/link";
 import { fetchContent, serviceFactory, createStoreFromJson } from "api/services/content";
@@ -65,7 +65,7 @@ class MyApp extends App {
 	render() {
 		const { Component, router, pageProps } = this.props;
 		return (
-			<Container>
+			<>
 				<Head>
 					<title>Sacha Guddoy</title>
 				</Head>
@@ -75,7 +75,7 @@ class MyApp extends App {
 						<Component query={router.query} {...pageProps} />
 					</Layout>
 				</Provider>
-			</Container>
+			</>
 		);
 	}
 }

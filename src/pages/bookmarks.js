@@ -1,77 +1,15 @@
 import React, { useState } from "react";
-import { createClient, useQuery, useMutation } from "urql";
 import Head from "next/head";
+import { useQuery, useMutation } from "urql";
 import { withUrqlClient } from "next-urql";
-
-export const client = createClient({
-    url: "https://guddoydev.hasura.app/v1/graphql",
-    fetchOptions: () => ({
-        headers: {
-            "x-hasura-admin-secret":
-                "SOblgoBVEwt0GfGqqvi3s6IpgrC4aqznyf7kBz1D1FPvYK2PEOZ7YIsBpRu1xgO3",
-        },
-    }),
-});
-
-const BOOKMARKS_QUERY = `
-	query GetBookmarks {
-		BOOKMARKS {
-			CREATION_DATE
-			DISPLAY_NAME
-			ID
-			URL
-			TAGS
-		}
-		BOOKMARK_CATEGORIES {
-			DISPLAY_NAME
-			ID
-			ITEMS
-		}
-	}
-`;
-
-const ADD_BOOKMARK_CATEGORY_MUTATION = `
-	mutation AddBookmarkCategory($DISPLAY_NAME: String = "", $ITEMS: json = "[]") {
-		insert_BOOKMARK_CATEGORIES_one(object: {ITEMS: $ITEMS, DISPLAY_NAME: $DISPLAY_NAME}) {
-			DISPLAY_NAME
-			ITEMS
-		}
-	}
-`;
-
-const ADD_BOOKMARK_TO_CATEGORY_MUTATION = `
-	mutation AddBookmarkToCategory($_eq: uuid = "", $ITEMS: json = "") {
-		update_BOOKMARK_CATEGORIES(_set: {ITEMS: $ITEMS}, where: {ID: {_eq: $_eq}}) {
-			returning {
-				DISPLAY_NAME
-				ID
-				ITEMS
-			}
-		}
-  	}
-`;
-
-const ADD_BOOKMARK_MUTATION = `
-	mutation AddBookmark($DISPLAY_NAME: String = "", $TAGS: json = "[]", $URL: String = "") {
-		insert_BOOKMARKS_one(object: {DISPLAY_NAME: $DISPLAY_NAME, TAGS: $TAGS, URL: $URL}) {
-			DISPLAY_NAME
-			CREATION_DATE
-			ID
-			TAGS
-			URL
-		}
-	}
-`;
-
-const addBookmarkCategory = async (category) => {
-    const res = await client
-        .query(ADD_BOOKMARK_CATEGORY_MUTATION, {
-            DISPLAY_NAME: category,
-            ITEMS: [],
-        })
-        .toPromise();
-    return res;
-};
+import { hasuraClientConfig } from "api/services/graphql";
+import {
+    BOOKMARKS_QUERY,
+    ADD_BOOKMARK_MUTATION,
+    ADD_BOOKMARK_TO_CATEGORY_MUTATION,
+    addBookmarkCategory
+} from "api/features/bookmarks";
+import { BOOKMARK_COOKIE_SECRET } from "utils/env";
 
 const Bookmark = ({ CREATION_DATE, DISPLAY_NAME, URL, TAGS = [] }) => (
     <li>
@@ -93,16 +31,24 @@ const Bookmark = ({ CREATION_DATE, DISPLAY_NAME, URL, TAGS = [] }) => (
     </li>
 );
 
-export const getBookmarks = async () => {
-    const { data } = await client.query(BOOKMARKS_QUERY).toPromise();
-    return data;
-};
-
-const sortByCategory = (bookmarks, categories) => {
-    return categories.reduce((acc, cat) => {
-        const items = cat.ITEMS.map((ID) => bookmarks.find((b) => b.ID === ID));
-        return [...acc, { ...cat, resolvedItems: items }];
-    }, []);
+const sortByCategory = (bookmarkList, categories) => {
+    const bookmarks = [...bookmarkList]
+    return [
+        ...categories.reduce((acc, cat) => {
+            const items = cat.ITEMS.map(id => {
+                const index = bookmarks.findIndex((b) => b.ID === id);
+                const item = bookmarks[index];
+                bookmarks.splice(index, 1);
+                return item;
+            });
+            return [...acc, { ...cat, resolvedItems: items }];
+        }, []),
+        {
+            DISPLAY_NAME: "Uncategorised",
+            ID: "Uncategorised",
+            resolvedItems: bookmarks
+        }
+    ]
 };
 
 const AddCategoryForm = () => {
@@ -214,7 +160,7 @@ const Bookmarks = (props) => {
     const [showForm, setShowForm] = useState(false);
 
     const [res] = useQuery({ query: BOOKMARKS_QUERY });
-    console.log(res);
+
     return (
         <>
             <Head>
@@ -236,12 +182,17 @@ const Bookmarks = (props) => {
     );
 };
 
-export default withUrqlClient(() => ({
-    url: "https://guddoydev.hasura.app/v1/graphql",
-    fetchOptions: () => ({
-        headers: {
-            "x-hasura-admin-secret":
-                "SOblgoBVEwt0GfGqqvi3s6IpgrC4aqznyf7kBz1D1FPvYK2PEOZ7YIsBpRu1xgO3",
-        },
-    }),
-}))(Bookmarks);
+export default withUrqlClient(() => hasuraClientConfig)(Bookmarks);
+
+export async function getServerSideProps({ req }) {
+    if (req.cookies.secret !== BOOKMARK_COOKIE_SECRET) {
+        return {
+            redirect: {
+                destination: "/error"
+            },
+        };
+    }
+    return {
+        props: {}, // will be passed to the page component as props
+    };
+}
