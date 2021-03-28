@@ -15,7 +15,8 @@
     "start": "npm run export && http-server ./out -p 3000 ",
     "export": "npm run build && next export ./src --outdir='./out'",
     "deploy": "netlify deploy",
-    "lint": "eslint ./src ./cypress --fix"
+    "lint": "eslint ./src ./cypress --fix",
+    "postinstall": "npm-recursive-install --rootDir=./functions"
   },
   "author": "Sacha Guddoy",
   "license": "ISC",
@@ -75,6 +76,7 @@
     "jest-junit": "^7.0.0",
     "memfs": "^2.15.5",
     "netlify": "^2.4.8",
+    "recursive-install": "^1.4.0",
     "sqip": "^1.0.0-alpha.26",
     "sqip-plugin-blur": "^1.0.0-alpha.22"
   }
