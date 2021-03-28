@@ -2,7 +2,7 @@
 require = require("esm")(module);
 require("dotenv").config()
 const withImages = require("next-images");
-const merge = require("webpack-merge");
+const { merge } = require("webpack-merge");
 const path = require("path");
 const getContent = require("./scripts/get-content");
 // const getImages = require("./scripts/get-images");

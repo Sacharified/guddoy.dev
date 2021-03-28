@@ -72,6 +72,7 @@
     "jest-junit": "^7.0.0",
     "memfs": "^2.15.5",
     "netlify": "^2.4.8",
-    "recursive-install": "^1.4.0"
+    "recursive-install": "^1.4.0",
+    "webpack-merge": "^5.7.3"
   }
 }
