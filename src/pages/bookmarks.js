@@ -156,7 +156,7 @@ const BookmarkCategory = (cat) => {
     );
 };
 
-const Bookmarks = (props) => {
+const Bookmarks = () => {
     const [showForm, setShowForm] = useState(false);
 
     const [res] = useQuery({ query: BOOKMARKS_QUERY });
