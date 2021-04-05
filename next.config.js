@@ -28,7 +28,8 @@ module.exports = withImages({
 			}
 		}, config);
 	},
-	target: 'serverless',
+	distDir: "../.next",
+	target: "serverless",
 	serverRuntimeConfig: {
 		BOOKMARK_COOKIE_SECRET
 	},
