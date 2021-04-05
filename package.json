@@ -14,7 +14,7 @@
     "build": "next build ./src",
     "start": "npm run build && next",
     "export": "npm run build && next export ./src --outdir='./out'",
-    "deploy": "netlify deploy",
+    "deploy": "rm -rf .next && npm run build && netlify deploy",
     "lint": "eslint ./src ./cypress --fix",
     "postinstall": "npm-recursive-install --rootDir=./functions"
   },
