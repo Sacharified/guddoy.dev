@@ -28,7 +28,7 @@ module.exports = withImages({
 			}
 		}, config);
 	},
-	distDir: "../.next",
+	distDir: "/.next",
 	target: "serverless",
 	serverRuntimeConfig: {
 		BOOKMARK_COOKIE_SECRET
@@ -47,6 +47,7 @@ module.exports = withImages({
 			"/": { page: "/" },
 			"/blog": { page: "/blog" },
 			"/anagram": { page: "/anagram" },
+			"/bookmarks": { page: "/bookmarks" },
 		};
 		const { items } = await getContent();
 		// await getImages(Asset);
