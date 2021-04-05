@@ -185,13 +185,13 @@ const Bookmarks = () => {
 export default withUrqlClient(() => hasuraClientConfig)(Bookmarks);
 
 export async function getServerSideProps({ req }) {
-    if (req.cookies.secret !== BOOKMARK_COOKIE_SECRET) {
-        return {
-            redirect: {
-                destination: "/error"
-            },
-        };
-    }
+    // if (req.cookies.secret !== BOOKMARK_COOKIE_SECRET) {
+    //     return {
+    //         redirect: {
+    //             destination: "/error"
+    //         },
+    //     };
+    // }
     return {
         props: {}, // will be passed to the page component as props
     };
