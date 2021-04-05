@@ -1,6 +1,7 @@
 [build]
   command = "npm run build"
   functions = "functions"
+  publish = "src/.next"
 
 # Production context: All deploys to the main
 # repository branch will inherit these settings.
