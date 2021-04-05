@@ -38,11 +38,7 @@
     "next-images": "^1.1.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-syntax-highlighter": "^11.0.2",
-    "sharp": "^0.23.0",
-    "sqip-plugin-data-uri": "^1.0.0-alpha.27",
-    "sqip-plugin-primitive": "^1.0.0-alpha.27",
-    "sqip-plugin-svgo": "^1.0.0-alpha.27"
+    "react-syntax-highlighter": "^11.0.2"
   },
   "bit": {
     "env": {
@@ -71,8 +67,6 @@
     "jest-junit": "^7.0.0",
     "memfs": "^2.15.5",
     "netlify": "^2.4.8",
-    "recursive-install": "^1.4.0",
-    "sqip": "^1.0.0-alpha.26",
-    "sqip-plugin-blur": "^1.0.0-alpha.22"
+    "recursive-install": "^1.4.0"
   }
 }
