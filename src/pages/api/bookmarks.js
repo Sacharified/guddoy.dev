@@ -12,6 +12,7 @@ const handlers = {
 const handler = async (req, res) => {
 	const handle = handlers[req.method];
 	let data = {};
+	console.log(req)
 	if (req.body) {
 		data = JSON.parse(req.body)
 	}
